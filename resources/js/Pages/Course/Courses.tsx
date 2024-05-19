@@ -1,24 +1,25 @@
 import { DataTable } from "@/Components/DataTable";
+import NavLink from "@/Components/NavLink";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@radix-ui/react-checkbox";
+import { PageProps } from "@/types";
+import { useForm, usePage } from "@inertiajs/react";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
     DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuLabel,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import NavLink from "@/Components/NavLink";
-
-import { usePage, useForm } from "@inertiajs/react";
+import { MoreHorizontal } from "lucide-react";
+import { format } from "date-fns";
+import { it } from "date-fns/locale";
 import clsx from "clsx";
 
-export const columns: ColumnDef<any>[] = [
+const columns: ColumnDef<any>[] = [
     {
         id: "select",
         header: ({ table }) => (
@@ -51,45 +52,52 @@ export const columns: ColumnDef<any>[] = [
         ),
     },
     {
-        accessorKey: "status",
-        header: "Status",
+        accessorKey: "code",
+        header: "Codice",
         cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("status")}</div>
+            <div className="capitalize font-bold">{row.getValue("code")}</div>
         ),
     },
     {
-        accessorKey: "firstname",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() =>
-                        column.toggleSorting(column.getIsSorted() === "asc")
-                    }
-                >
-                    Nome
-                    {/*  <ArrowUpDown className="ml-2 h-4 w-4" /> */}
-                </Button>
-            );
-        },
+        accessorKey: "title",
+        header: "Titolo",
         cell: ({ row }) => (
-            <div className="lowercase">{row.getValue("firstname")}</div>
+            <div className="capitalize">{row.getValue("title")}</div>
         ),
     },
     {
-        accessorKey: "lastname",
-        header: () => <div className="">Cognome</div>,
+        accessorKey: "price",
+        header: "Prezzo",
         cell: ({ row }) => (
-            <div className="lowercase">{row.getValue("lastname")}</div>
+            <div className="capitalize">{row.getValue("price")}</div>
         ),
     },
+    {
+        accessorKey: "startDate",
+        header: "Data Inizio",
+        cell: ({ row }) => (
+            <div className="capitalize">
+                {format(row.getValue("startDate"), "PPP", { locale: it })}
+            </div>
+        ),
+    },
+
+    {
+        accessorKey: "endDate",
+        header: "Data Fine",
+        cell: ({ row }) => (
+            <div className="capitalize">
+                {format(row.getValue("endDate"), "PPP", { locale: it })}
+            </div>
+        ),
+    },
+
     {
         id: "actions",
+        header: "Azioni",
         enableHiding: false,
         cell: ({ row }) => {
             const { delete: destroy, processing } = useForm();
-
-            const payment = row.original;
 
             return (
                 <DropdownMenu>
@@ -103,14 +111,13 @@ export const columns: ColumnDef<any>[] = [
                         <DropdownMenuLabel>Azioni</DropdownMenuLabel>
                         <DropdownMenuItem
                             onClick={() => {
-                                // navigator.clipboard.writeText(payment.id)\
                                 if (
                                     confirm(
-                                        "Sei sicuro di voler eliminare il cliente?"
+                                        "Sei sicuro di voler eliminare il Corso?"
                                     )
                                 ) {
                                     destroy(
-                                        route("customer.destroy", {
+                                        route("course.destroy", {
                                             id: row.getValue("id"),
                                         })
                                     );
@@ -122,14 +129,14 @@ export const columns: ColumnDef<any>[] = [
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
                             <NavLink
-                                href={route("customer.edit", {
+                                href={route("course.show", {
                                     id: row.getValue("id"),
                                 })}
-                                active={route().current("customer.edit", {
+                                active={route().current("course.show", {
                                     id: row.getValue("id"),
                                 })}
                             >
-                                Vedi Cliente
+                                Vedi Corso
                             </NavLink>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -139,8 +146,10 @@ export const columns: ColumnDef<any>[] = [
     },
 ];
 
-const Customers = ({ auth, customers }) => {
+const Courses = ({ auth, courses }: PageProps) => {
     const { flash } = usePage<any>().props;
+
+    console.log({ usePageProps: usePage().props });
 
     const flashClass = clsx("p-3 rounded-md text-white", {
         ["bg-green-600"]: flash.message?.type === "success",
@@ -152,11 +161,14 @@ const Customers = ({ auth, customers }) => {
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Customers
+                    Corsi
                 </h2>
             }
         >
             <div className="py-12">
+                {/*   {flash.error && (
+                    <div className="alert alert-danger">{flash.error}</div>
+                )} */}
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
@@ -166,14 +178,14 @@ const Customers = ({ auth, customers }) => {
                                 </div>
                             )}
                             <DataTable
-                                data={customers}
+                                data={courses}
                                 columns={columns}
                                 newBtn={
                                     <NavLink
-                                        href={route("customer.add")}
+                                        href={route("course.add")}
                                         active={false}
                                     >
-                                        <Button>Nuovo Cliente</Button>
+                                        <Button>Nuovo Corso</Button>
                                     </NavLink>
                                 }
                             />
@@ -185,4 +197,4 @@ const Customers = ({ auth, customers }) => {
     );
 };
 
-export default Customers;
+export default Courses;

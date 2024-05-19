@@ -78,6 +78,9 @@ class CustomerController extends Controller
         $customer = Customer::findOrFail($id);
         $customer->delete();
 
-        return redirect()->route('customer.index')->with('success', 'Customer deleted successfully.');
+        return redirect()->route('customer.index')->with('message', [
+            'type' => 'success',
+            'content' => 'Cliente eliminato con successo.'
+        ]);
     }
 }

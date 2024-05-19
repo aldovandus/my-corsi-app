@@ -2,6 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm } from "@inertiajs/react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import AddSubscription from "./AddSubscription/AddSubcription";
 
 const Edit = ({ auth, customer, subscriptions }) => {
     const { data, setData, post, processing, errors, patch, progress } =
@@ -68,12 +69,16 @@ const Edit = ({ auth, customer, subscriptions }) => {
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-14">
                     <h1 className="text-2xl">Iscrizioni</h1>
-
-                    {subscriptions.map((subscription) => (
-                        <div>
-                            {subscription.title} - {subscription.price} €
-                        </div>
-                    ))}
+                    <AddSubscription />
+                    {subscriptions.length > 0 ? (
+                        subscriptions.map((subscription) => (
+                            <div>
+                                {subscription.title} - {subscription.price} €
+                            </div>
+                        ))
+                    ) : (
+                        <div>Nessuna iscrizione</div>
+                    )}
                 </div>
             </div>
         </AuthenticatedLayout>
