@@ -1,6 +1,6 @@
 import { DataTable } from "@/Components/DataTable";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@radix-ui/react-checkbox";
 import {
     DropdownMenu,
@@ -10,7 +10,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import NavLink from "@/Components/NavLink";
@@ -87,9 +87,7 @@ export const columns: ColumnDef<any>[] = [
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {
-            const { delete: destroy, processing } = useForm();
-
-            const payment = row.original;
+            const { delete: destroy } = useForm();
 
             return (
                 <DropdownMenu>

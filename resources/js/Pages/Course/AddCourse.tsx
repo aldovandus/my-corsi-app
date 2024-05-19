@@ -56,6 +56,8 @@ const Add = ({ auth }: PageProps) => {
 
                                 {errors.title && <div>{errors.title}</div>}
 
+                                <Label htmlFor="email">Titolo</Label>
+
                                 <Input
                                     type="text"
                                     value={data.title}
@@ -66,7 +68,7 @@ const Add = ({ auth }: PageProps) => {
                                 />
 
                                 {errors.price && <div>{errors.price}</div>}
-
+                                <Label htmlFor="email">Prezzo</Label>
                                 <Input
                                     type="text"
                                     value={data.price}
@@ -75,6 +77,8 @@ const Add = ({ auth }: PageProps) => {
                                     }
                                     placeholder="Prezzo"
                                 />
+
+                                <Label htmlFor="email">Data inizio corso</Label>
 
                                 <div className="flex gap-4">
                                     <DatePicker
