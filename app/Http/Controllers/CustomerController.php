@@ -32,7 +32,7 @@ class CustomerController extends Controller
         }
 
         $subscriptionsWithCourses = Subscription::join('course', 'subscription.course_id', '=', 'course.id')
-            ->select('subscription.price', 'course.title', 'course.price') // seleziona i campi desiderati
+            ->select('subscription.price', 'course.code', 'course.title', 'course.price') // seleziona i campi desiderati
             ->where('customer_id', $id)->get();
 
 
@@ -74,6 +74,18 @@ class CustomerController extends Controller
         $customer->update($request->only('firstname', 'lastname'));
 
         return redirect()->route('customer.edit', $request->id)->with('success', 'Customer updated successfully.');
+    }
+
+    public function show(Customer $customer){
+
+        $subscriptionsWithCourses = Subscription::join('course', 'subscription.course_id', '=', 'course.id')
+        ->select('subscription.price', 'course.title', 'course.price') // seleziona i campi desiderati
+        ->where('customer_id', $customer->id)->get();
+
+        return Inertia::render('Customer/ShowCustomer/index', [
+            'customer'=> $customer,
+            'subscriptions' => $subscriptionsWithCourses
+        ]);
     }
 
     public function destroy($id)

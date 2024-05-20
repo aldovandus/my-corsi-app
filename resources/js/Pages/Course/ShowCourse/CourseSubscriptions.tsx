@@ -6,17 +6,7 @@ import {
     CardContent,
     CardDescription,
 } from "@/Components/ui/card";
-
-const getInitials = (firstname: string, lastname: string) => {
-    if (!firstname || !lastname) {
-        return "";
-    }
-
-    const firstInitial = firstname.charAt(0).toUpperCase();
-    const lastInitial = lastname.charAt(0).toUpperCase();
-
-    return `${firstInitial}${lastInitial}`;
-};
+import { getInitials } from "@/lib/utils";
 
 function CourseSubscriptions({ subscriptions }) {
     return (
@@ -52,7 +42,7 @@ function CourseSubscriptions({ subscriptions }) {
                                     {subscription.lastname}
                                 </p>
                                 <p className="text-sm text-muted-foreground">
-                                    olivia.martin@email.com
+                                    {subscription.email}
                                 </p>
                             </div>
                             <div className="ml-auto font-medium">

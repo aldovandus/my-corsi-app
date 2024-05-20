@@ -23,3 +23,12 @@ export interface Course {
     price: string;
     extra?: string;
 }
+
+export interface Customer {
+    id: number;
+    firstname: string;
+    lastname: string;
+    cf: string;
+    phone: string;
+    birth_date: string;
+}

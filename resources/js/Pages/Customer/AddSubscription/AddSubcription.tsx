@@ -1,19 +1,22 @@
-import { Button } from "@/components/ui/button";
-import { DialogHeader, DialogFooter, Dialog } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/Components/ui/button";
+import { DialogHeader, DialogFooter, Dialog } from "@/Components/ui/dialog";
+import { Input } from "@/Components/ui/input";
 import {
     DialogTrigger,
     DialogContent,
     DialogTitle,
     DialogDescription,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import { Label } from "@radix-ui/react-dropdown-menu";
+import { Plus } from "lucide-react";
 
 const AddSubscription = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">Edit Profile</Button>
+                <Button variant="outline">
+                    <Plus className="h-5 w-5" /> Nuova iscrizione
+                </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
