@@ -51,8 +51,11 @@ class CustomerController extends Controller
     {
         $validated = $request->validate([
             'firstname' => 'required|string|max:255',
-            //'lastname' => 'required|string|email|max:255|unique:customers',
             'lastname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:customers',
+            'phone' => 'required|string|max:10',
+            'cf' => 'required|string|max:11',
+            'birth_date' => 'required|string|max:100',
             // Aggiungi altri campi di validazione necessari
         ]);
 

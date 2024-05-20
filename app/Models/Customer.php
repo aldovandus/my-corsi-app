@@ -13,9 +13,9 @@ class Customer extends Model
         'firstname',
         'lastname',
         'cf',
-        'ragsociale',
+        'phone',
         'birth_date',
-        ''
+        'email'
     ];
 
     public function subscriptions()
