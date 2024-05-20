@@ -37,7 +37,7 @@ export default function Authenticated({
                                     href={route("customer.index")}
                                     active={route().current("customer.index")}
                                 >
-                                    Customers
+                                    Clienti
                                 </NavLink>
 
                                 <NavLink

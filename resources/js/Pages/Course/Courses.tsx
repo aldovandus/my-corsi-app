@@ -1,10 +1,10 @@
 import { DataTable } from "@/Components/DataTable";
 import NavLink from "@/Components/NavLink";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/Components/ui/button";
 import { PageProps } from "@/types";
 import { useForm, usePage } from "@inertiajs/react";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "@/Components/ui/checkbox";
 import {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -12,7 +12,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuItem,
     DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
+} from "@/Components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import { format } from "date-fns";

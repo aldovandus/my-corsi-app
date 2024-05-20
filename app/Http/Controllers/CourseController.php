@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -39,6 +40,7 @@ class CourseController extends Controller
             'price' => 'required|string|max:255',
             'startDate' => 'required|string|max:255',
             'endDate' => 'required|string|max:255',
+            'extra' => 'max:1000',
             // Aggiungi altri campi di validazione necessari
         ]);
 
@@ -57,6 +59,17 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         //
+
+        $subscriptions = Subscription::join('customers', 'subscription.customer_id', '=', 'customers.id')
+            ->select('subscription.price', 'customers.firstname', 'customers.lastname') // seleziona i campi desiderati
+            ->where('course_id', $course->id)->get();
+
+
+        return Inertia::render('Course/ShowCourse/index', [
+            'course' => $course,
+            'subscriptions'=> $subscriptions
+        ]);
+    
     }
 
     /**

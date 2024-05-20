@@ -1,21 +1,14 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm } from "@inertiajs/react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { PageProps } from "@/types";
-import DatePicker from "@/components/ui/date-picker";
-import { Label } from "@/components/ui/label";
-
-interface Props {
-    code: string;
-    title: string;
-    price: string;
-    startDate: string;
-    endDate: string;
-}
+import { Input } from "@/Components/ui/input";
+import { Button } from "@/Components/ui/button";
+import { Course, PageProps } from "@/types";
+import DatePicker from "@/Components/ui/date-picker";
+import { Label } from "@/Components/ui/label";
+import { Textarea } from "@/Components/ui/textarea";
 
 const Add = ({ auth }: PageProps) => {
-    const { data, setData, post, processing, errors } = useForm<Props>();
+    const { data, setData, post, processing, errors } = useForm<Course>();
 
     function submit(e: { preventDefault: () => void }) {
         e.preventDefault();
@@ -92,6 +85,17 @@ const Add = ({ auth }: PageProps) => {
                                             setData("endDate", date);
                                         }}
                                         label="Fine Corso"
+                                    />
+                                </div>
+
+                                <div className="grid w-full gap-1.5">
+                                    <Label htmlFor="message">Extra</Label>
+                                    <Textarea
+                                        onChange={(e) => {
+                                            setData("extra", e.target.value);
+                                        }}
+                                        placeholder="Se vuoi scrivi qualche info qui."
+                                        id="message"
                                     />
                                 </div>
 

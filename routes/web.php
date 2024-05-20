@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/courses', [CourseController::class, 'index'])->name('course.index');
     Route::get('/courses/add', [CourseController::class, 'add'])->name('course.add');
     Route::post('/courses/store', [CourseController::class, 'store'])->name('course.store');
-    Route::get('/courses/show/{id}', [CourseController::class, 'show'])->name('course.show');
+    Route::get('/courses/show/{course}', [CourseController::class, 'show'])->name('course.show');
     Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('course.destroy');
 });
 
