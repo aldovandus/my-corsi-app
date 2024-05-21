@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subscription;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
@@ -18,7 +19,7 @@ class SubscriptionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Customer $customer)
     {
         //
 
@@ -27,15 +28,16 @@ class SubscriptionController extends Controller
             'customer_id' => 'required',
             'price' => 'string|max:100',
             'subscription_date' => 'required|string|max:25',
+
             // Aggiungi altri campi di validazione necessari
         ]);
 
+        //        $validated['customer_id'] = $customer->id;
         $subscription = Subscription::create($validated);
-        return redirect()->route("")->with('message', [
-            'type' => 'success',
-            'content' => 'Iscrizione effettuata con successo.'
+        return response([
+            'message' => 'Iscrizione effettuata con successo.',
+            'type' => 'success'
         ]);
-        
     }
 
     /**

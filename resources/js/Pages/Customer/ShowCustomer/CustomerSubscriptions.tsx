@@ -1,20 +1,17 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/Components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
-import { getInitials } from "@/lib/utils";
-import React from "react";
-import AddSubscription from "../AddSubscription/AddSubcription";
 import { Label } from "@/Components/ui/label";
 
 type Props = {};
 
-function CustomerSubscriptions({ subscriptions }: Props) {
+function CustomerSubscriptions({ subscriptions, addSubscription }: Props) {
     return (
         <div className="py-3">
             <Card>
                 <CardHeader>
                     <div className="flex items-center justify-between">
                         <CardTitle>Iscrizioni</CardTitle>
-                        <AddSubscription />
+                        {addSubscription}
                     </div>
                 </CardHeader>
                 <CardContent className="grid gap-8">

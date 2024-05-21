@@ -16,10 +16,13 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import { Plus, Save, X } from "lucide-react";
 import DatePicker from "@/Components/ui/date-picker";
 import { useForm } from "@inertiajs/react";
+import { useState } from "react";
 
-const AddSubscription = () => {
-    const { post } = useForm();
-
+const AddSubscription = ({ customer }) => {
+    const { data, setData, post, processing } = useForm({
+        course_id: 2,
+        customer_id: customer.id,
+    });
     const onSave = () => {
         post(route("subscription.store"));
     };
@@ -46,7 +49,7 @@ const AddSubscription = () => {
                         </Label>
                         <Input
                             id="name"
-                            defaultValue="Pedro Duarte"
+                            placeholder="Nome Corso"
                             className="col-span-3"
                         />
                     </div>
@@ -55,21 +58,32 @@ const AddSubscription = () => {
                             Prezzo
                         </Label>
                         <Input
-                            id="username"
-                            defaultValue=""
+                            id="price"
+                            defaultValue={data.price}
                             className="col-span-3"
                             placeholder="Es: 1000 €"
+                            onChange={(e) => {
+                                setData("price", e.target.value);
+                            }}
                         />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="username" className="text-right">
                             Data
                         </Label>
-                        <DatePicker />
+                        <DatePicker
+                            onChange={(date) => {
+                                setData("subscription_date", date);
+                            }}
+                        />
                     </div>
                 </div>
                 <DialogFooter>
-                    <Button onClick={onSave} type="submit">
+                    <Button
+                        disabled={processing}
+                        onClick={onSave}
+                        type="submit"
+                    >
                         <Save className="w-4 h-4 mr-2" /> Salva
                     </Button>
                     <DialogClose asChild>

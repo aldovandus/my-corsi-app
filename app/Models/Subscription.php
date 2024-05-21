@@ -17,7 +17,6 @@ class Subscription extends Model
         'customer_id',
         'subscription_date',
         'price',
-        'expiry_date'
     ];
 
 

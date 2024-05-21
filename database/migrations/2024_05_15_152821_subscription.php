@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->string('price');
             $table->string('subscription_date');
-            $table->string('expiry_date');
             $table->timestamps();
         });
     }

@@ -40,7 +40,7 @@ class CourseController extends Controller
             'price' => 'required|string|max:255',
             'startDate' => 'required|string|max:255',
             'endDate' => 'required|string|max:255',
-            'extra' => 'max:1000',
+            'extra' => 'string|max:1000',
             // Aggiungi altri campi di validazione necessari
         ]);
 
@@ -59,7 +59,6 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         //
-
         $subscriptions = Subscription::join('customers', 'subscription.customer_id', '=', 'customers.id')
             ->select('subscription.price', 'customers.firstname', 'customers.lastname', 'customers.email') // seleziona i campi desiderati
             ->where('course_id', $course->id)->get();
@@ -67,9 +66,8 @@ class CourseController extends Controller
 
         return Inertia::render('Course/ShowCourse/index', [
             'course' => $course,
-            'subscriptions'=> $subscriptions
+            'subscriptions' => $subscriptions
         ]);
-    
     }
 
     /**

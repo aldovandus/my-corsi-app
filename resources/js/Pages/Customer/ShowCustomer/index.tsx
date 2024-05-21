@@ -3,6 +3,7 @@ import { Label } from "@/Components/ui/label";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Customer, PageProps } from "@/types";
 import CustomerSubscriptions from "./CustomerSubscriptions";
+import AddSubscription from "../AddSubscription/AddSubcription";
 
 function index({
     auth,
@@ -57,7 +58,12 @@ function index({
                         </CardContent>
                     </Card>
 
-                    <CustomerSubscriptions subscriptions={subscriptions} />
+                    <CustomerSubscriptions
+                        subscriptions={subscriptions}
+                        addSubscription={
+                            <AddSubscription customer={customer} />
+                        }
+                    />
                 </div>
             </div>
         </Authenticated>
