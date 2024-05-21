@@ -34,9 +34,9 @@ class SubscriptionController extends Controller
 
         //        $validated['customer_id'] = $customer->id;
         $subscription = Subscription::create($validated);
-        return response([
-            'message' => 'Iscrizione effettuata con successo.',
-            'type' => 'success'
+        return redirect()->route("")->with('message', [
+            'type' => 'success',
+            'content' => 'Iscrizione effettuata con successo.'
         ]);
     }
 
