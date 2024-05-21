@@ -79,7 +79,7 @@ class CustomerController extends Controller
     public function show(Customer $customer){
 
         $subscriptionsWithCourses = Subscription::join('course', 'subscription.course_id', '=', 'course.id')
-        ->select('subscription.price', 'course.title', 'course.price') // seleziona i campi desiderati
+        ->select('subscription.price', 'course.code','course.title', 'course.price') // seleziona i campi desiderati
         ->where('customer_id', $customer->id)->get();
 
         return Inertia::render('Customer/ShowCustomer/index', [

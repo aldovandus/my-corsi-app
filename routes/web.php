@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/courses', [CourseController::class, 'index'])->name('course.index');
     Route::get('/courses/add', [CourseController::class, 'add'])->name('course.add');
     Route::post('/courses/store', [CourseController::class, 'store'])->name('course.store');
+    Route::post('/subscription/store', [SubscriptionController::class, 'store'])->name('subscription.store');
     Route::get('/courses/show/{course}', [CourseController::class, 'show'])->name('course.show');
     Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('course.destroy');
 });

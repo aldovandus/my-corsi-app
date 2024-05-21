@@ -3,12 +3,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
 import { getInitials } from "@/lib/utils";
 import React from "react";
 import AddSubscription from "../AddSubscription/AddSubcription";
+import { Label } from "@/Components/ui/label";
 
 type Props = {};
 
 function CustomerSubscriptions({ subscriptions }: Props) {
     return (
-        <div className="py-12">
+        <div className="py-3">
             <Card>
                 <CardHeader>
                     <div className="flex items-center justify-between">
@@ -25,10 +26,11 @@ function CustomerSubscriptions({ subscriptions }: Props) {
                                     alt="Avatar"
                                 />
                                 <AvatarFallback>
-                                    {getInitials(
-                                        subscription.firstname,
-                                        subscription.lastname
-                                    )}
+                                    {/*  {getInitials(
+                                        subscription.code,
+                                        subscription.c
+                                    )} */}
+                                    {subscription.code}
                                 </AvatarFallback>
                             </Avatar>
                             <div className="grid gap-1">
@@ -39,8 +41,20 @@ function CustomerSubscriptions({ subscriptions }: Props) {
                                     {subscription.title}
                                 </p>
                             </div>
-                            <div className="ml-auto font-medium">
-                                {subscription.price} €
+                            <div className="ml-auto font-medium flex gap-3 items-center">
+                                <div className="text-red-600">
+                                    <Label className="font-bold">
+                                        Da pagare:{" "}
+                                    </Label>
+                                    {subscription.price} €
+                                </div>
+                                <div className="text-green-800">
+                                    {" "}
+                                    <Label className="font-bold">
+                                        Pagato:{" "}
+                                    </Label>
+                                    {subscription.price / 2} €
+                                </div>
                             </div>
                         </div>
                     ))}
