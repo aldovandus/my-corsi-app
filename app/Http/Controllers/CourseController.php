@@ -23,6 +23,11 @@ class CourseController extends Controller
         ]);
     }
 
+    public function getAll(){
+        $courses = Course::all();
+        return response()->json($courses);
+    }
+
     public function add()
     {
         return Inertia::render('Course/AddCourse');

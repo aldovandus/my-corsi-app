@@ -17,14 +17,17 @@ import { Plus, Save, X } from "lucide-react";
 import DatePicker from "@/Components/ui/date-picker";
 import { useForm } from "@inertiajs/react";
 import { useState } from "react";
+import { Customer } from "@/types";
+import CoursesComboBox from "./CoursesComboBox";
 
-const AddSubscription = ({ customer }) => {
+const AddSubscription = ({ customer }: { customer: Customer }) => {
     const { data, setData, post, processing } = useForm({
-        course_id: 2,
         customer_id: customer.id,
     });
     const onSave = () => {
-        post(route("subscription.store"));
+        post(route("subscription.store"), {
+            onSuccess: () => {},
+        });
     };
 
     return (
@@ -47,11 +50,13 @@ const AddSubscription = ({ customer }) => {
                         <Label htmlFor="name" className="text-right">
                             Corso
                         </Label>
-                        <Input
+                        {/*  <Input
                             id="name"
                             placeholder="Nome Corso"
                             className="col-span-3"
-                        />
+                        /> */}
+
+                        <CoursesComboBox setData={setData} />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="username" className="text-right">
@@ -72,6 +77,7 @@ const AddSubscription = ({ customer }) => {
                             Data
                         </Label>
                         <DatePicker
+                            defaultDate={new Date()}
                             onChange={(date) => {
                                 setData("subscription_date", date);
                             }}

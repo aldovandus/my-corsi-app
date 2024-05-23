@@ -33,11 +33,12 @@ class SubscriptionController extends Controller
         ]);
 
         //        $validated['customer_id'] = $customer->id;
-        $subscription = Subscription::create($validated);
-        return redirect()->route("")->with('message', [
+        Subscription::create($validated);
+       /*  return redirect()->route("customer.show", $customer)->with('message', [
             'type' => 'success',
             'content' => 'Iscrizione effettuata con successo.'
-        ]);
+        ]);  */
+
     }
 
     /**

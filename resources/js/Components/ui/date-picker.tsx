@@ -16,11 +16,13 @@ import { it } from "date-fns/locale";
 const DatePicker = ({
     label = "Scegli una data",
     onChange,
+    defaultDate,
 }: {
     label?: string;
     onChange?(): void;
+    defaultDate?: Date;
 }) => {
-    const [date, setDate] = React.useState<Date>();
+    const [date, setDate] = React.useState<Date | null>(defaultDate ?? null);
 
     return (
         <Popover>
