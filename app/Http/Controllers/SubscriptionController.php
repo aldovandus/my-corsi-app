@@ -24,9 +24,9 @@ class SubscriptionController extends Controller
         //
 
         $validated = $request->validate([
-            'course_id' => 'required',
+            'course_id' => 'required|unique:subscription',
             'customer_id' => 'required',
-            'price' => 'string|max:100',
+            'price' => 'required|string|max:10',
             'subscription_date' => 'required|string|max:25',
 
             // Aggiungi altri campi di validazione necessari
@@ -34,11 +34,10 @@ class SubscriptionController extends Controller
 
         //        $validated['customer_id'] = $customer->id;
         Subscription::create($validated);
-       /*  return redirect()->route("customer.show", $customer)->with('message', [
+        /*  return redirect()->route("customer.show", $customer)->with('message', [
             'type' => 'success',
             'content' => 'Iscrizione effettuata con successo.'
         ]);  */
-
     }
 
     /**

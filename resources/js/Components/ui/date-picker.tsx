@@ -1,4 +1,3 @@
-import * as React from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
@@ -12,6 +11,7 @@ import {
 } from "@/Components/ui/popover";
 
 import { it } from "date-fns/locale";
+import { useEffect, useState } from "react";
 
 const DatePicker = ({
     label = "Scegli una data",
@@ -19,10 +19,17 @@ const DatePicker = ({
     defaultDate,
 }: {
     label?: string;
-    onChange?(): void;
+    onChange?(date: Date): void;
     defaultDate?: Date;
 }) => {
-    const [date, setDate] = React.useState<Date | null>(defaultDate ?? null);
+    const [date, setDate] = useState<Date | null>();
+
+    useEffect(() => {
+        if (defaultDate) {
+            setDate(defaultDate);
+            if (onChange) onChange(defaultDate);
+        }
+    }, []);
 
     return (
         <Popover>

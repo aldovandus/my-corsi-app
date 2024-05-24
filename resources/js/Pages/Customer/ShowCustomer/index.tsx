@@ -32,7 +32,7 @@ function index({
                                 <div className="flex gap-3">
                                     <Label>Codice Fiscale:</Label>
                                     <span className="font-bold">
-                                        {customer.cf}
+                                        {customer.subscription_date}
                                     </span>
                                 </div>
                                 <div className="flex gap-3">

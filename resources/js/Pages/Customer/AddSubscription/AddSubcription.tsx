@@ -19,14 +19,22 @@ import { useForm } from "@inertiajs/react";
 import { useState } from "react";
 import { Customer } from "@/types";
 import CoursesComboBox from "./CoursesComboBox";
+import clsx from "clsx";
 
 const AddSubscription = ({ customer }: { customer: Customer }) => {
-    const { data, setData, post, processing } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         customer_id: customer.id,
     });
+
     const onSave = () => {
         post(route("subscription.store"), {
             onSuccess: () => {},
+            onError: (err) => {
+                if (err.course_id) {
+                    console.log({ err });
+                    alert("Questo corso già esiste");
+                }
+            },
         });
     };
 
@@ -64,8 +72,12 @@ const AddSubscription = ({ customer }: { customer: Customer }) => {
                         </Label>
                         <Input
                             id="price"
+                            color="red"
                             defaultValue={data.price}
                             className="col-span-3"
+                            style={{
+                                border: errors.price ? "1px solid red" : "none",
+                            }}
                             placeholder="Es: 1000 €"
                             onChange={(e) => {
                                 setData("price", e.target.value);

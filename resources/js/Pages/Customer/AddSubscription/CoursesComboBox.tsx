@@ -55,9 +55,9 @@ export default function CoursesComboBox({ setData }) {
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-[250px] p-0">
                 <Command>
-                    <CommandInput placeholder="Search framework..." />
+                    <CommandInput placeholder="Cerca Corso..." />
                     <CommandEmpty>Nessun corso trovato.</CommandEmpty>
                     <CommandGroup className="capitalize">
                         {courses.map((course) => (
@@ -70,15 +70,9 @@ export default function CoursesComboBox({ setData }) {
                                             ? course
                                             : currentCourse
                                     );
-                                    console.log({
-                                        selectedCourse,
-                                        currentCourse,
-                                        course,
-                                    });
+
                                     setData("course_id", course?.id);
                                     setOpen(false);
-
-                                    // alert(selectedCourse);
                                 }}
                             >
                                 <Check
@@ -89,7 +83,7 @@ export default function CoursesComboBox({ setData }) {
                                             : "opacity-0"
                                     )}
                                 />
-                                {course.title}
+                                {course.code} - {course.title}
                             </CommandItem>
                         ))}
                     </CommandGroup>

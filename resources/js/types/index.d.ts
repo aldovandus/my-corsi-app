@@ -28,7 +28,20 @@ export interface Customer {
     id: number;
     firstname: string;
     lastname: string;
-    cf: string;
+    subscription_date: string;
     phone: string;
     birth_date: string;
+    extra?: string;
+}
+
+export interface Subscription {
+    course_id: number;
+    customer_id: number;
+    code: string;
+    title: string;
+    price: string;
+    subscription_date: string;
+    phone: string;
+    birth_date: string;
+    extra?: string;
 }

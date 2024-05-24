@@ -1,8 +1,13 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/Components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
 import { Label } from "@/Components/ui/label";
+import { Subscription } from "@/types";
+import React from "react";
 
-type Props = {};
+type Props = {
+    subscriptions: Subscription[];
+    addSubscription?: React.ReactNode;
+};
 
 function CustomerSubscriptions({ subscriptions, addSubscription }: Props) {
     return (
@@ -23,10 +28,6 @@ function CustomerSubscriptions({ subscriptions, addSubscription }: Props) {
                                     alt="Avatar"
                                 />
                                 <AvatarFallback>
-                                    {/*  {getInitials(
-                                        subscription.code,
-                                        subscription.c
-                                    )} */}
                                     {subscription.code}
                                 </AvatarFallback>
                             </Avatar>
@@ -47,10 +48,8 @@ function CustomerSubscriptions({ subscriptions, addSubscription }: Props) {
                                 </div>
                                 <div className="text-green-800">
                                     {" "}
-                                    <Label className="font-bold">
-                                        Pagato:{" "}
-                                    </Label>
-                                    {subscription.price / 2} €
+                                    <Label className="font-bold">Pagato:</Label>
+                                    {parseFloat(subscription.price) / 2} €
                                 </div>
                             </div>
                         </div>
