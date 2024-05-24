@@ -17,6 +17,7 @@ import NavLink from "@/Components/NavLink";
 
 import { usePage, useForm } from "@inertiajs/react";
 import clsx from "clsx";
+import { Customer, PageProps } from "@/types";
 
 export const columns: ColumnDef<any>[] = [
     {
@@ -137,7 +138,10 @@ export const columns: ColumnDef<any>[] = [
     },
 ];
 
-const Customers = ({ auth, customers }) => {
+const Customers = ({
+    auth,
+    customers,
+}: PageProps<{ customers: Customer[] }>) => {
     const { flash } = usePage<any>().props;
 
     const flashClass = clsx("p-3 rounded-md text-white", {

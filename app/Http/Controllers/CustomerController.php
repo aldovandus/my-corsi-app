@@ -44,7 +44,7 @@ class CustomerController extends Controller
 
     public function add()
     {
-        return Inertia::render('Customer/Add');
+        return Inertia::render('Customer/AddCustomer');
     }
 
     public function store(Request $request)
@@ -57,6 +57,10 @@ class CustomerController extends Controller
             'cf' => 'required|string|max:11',
             'birth_date' => 'required|string|max:100',
             // Aggiungi altri campi di validazione necessari
+        ], [
+            'email.required' => 'Inserisci un indirizzo email',
+            'email.email' => "L'indirizzo email non ha un formato valido.",
+            'email.unique' => "L'indirizzo email esiste già.",
         ]);
 
         Customer::create($validated);
@@ -76,14 +80,15 @@ class CustomerController extends Controller
         return redirect()->route('customer.edit', $request->id)->with('success', 'Customer updated successfully.');
     }
 
-    public function show(Customer $customer){
+    public function show(Customer $customer)
+    {
 
         $subscriptionsWithCourses = Subscription::join('course', 'subscription.course_id', '=', 'course.id')
-        ->select('subscription.price', 'course.code','course.title', 'course.price') // seleziona i campi desiderati
-        ->where('customer_id', $customer->id)->get();
+            ->select('subscription.id', 'subscription.price', 'course.code', 'course.title', 'course.price') // seleziona i campi desiderati
+            ->where('customer_id', $customer->id)->get();
 
         return Inertia::render('Customer/ShowCustomer/index', [
-            'customer'=> $customer,
+            'customer' => $customer,
             'subscriptions' => $subscriptionsWithCourses
         ]);
     }

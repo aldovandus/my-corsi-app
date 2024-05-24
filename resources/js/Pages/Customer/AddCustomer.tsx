@@ -1,26 +1,22 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { useForm } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 import { Input } from "@/Components/ui/input";
 import { Button } from "@/Components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
 import { Label } from "@/Components/ui/label";
 import DatePicker from "@/Components/ui/date-picker";
-import { Customer, PageProps, Subscription } from "@/types";
+import { Customer, PageProps } from "@/types";
 import { Textarea } from "@/Components/ui/textarea";
+import { ArrowLeftIcon, BackpackIcon } from "lucide-react";
 
 const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
-    const { data, setData, post, processing, errors, patch, progress } =
-        useForm({
-            ...customer,
-        });
+    const { data, setData, post, processing, errors, hasErrors } = useForm({
+        ...customer,
+    });
 
     function submit(e: { preventDefault: () => void }) {
         e.preventDefault();
-        post(route("customer.store"), {
-            onSuccess: () => {
-                console.log("success...");
-            },
-        });
+        post(route("customer.store"));
     }
 
     return (
@@ -34,9 +30,19 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
         >
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <Link href={route("customer.index")}>
+                        <div className="flex gap-2 items-center py-4 cursor-pointer">
+                            <ArrowLeftIcon className="h-5 w-5" />
+                            <Label className="text-2xl cursor-pointer">
+                                Clienti
+                            </Label>
+                        </div>
+                    </Link>
+
                     <Card className="">
                         <CardHeader>
                             <CardTitle>Nuovo Cliente</CardTitle>
+                            <div className="text-red-400">{errors?.email}</div>
                         </CardHeader>
 
                         <CardContent>
@@ -58,8 +64,6 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                                             />
                                         </div>
 
-                                        {/*  {errors.email && <div>{errors.email}</div>} */}
-
                                         <div className="grid w-full items-center gap-1.5">
                                             <Label>Cognome</Label>
                                             <Input
@@ -74,10 +78,6 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                                                 placeholder="Cognome"
                                             />
                                         </div>
-
-                                        {errors.lastname && (
-                                            <div>{errors.lastname}</div>
-                                        )}
                                     </div>
 
                                     <div className="flex gap-6">

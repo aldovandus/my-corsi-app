@@ -30,7 +30,7 @@ class SubscriptionController extends Controller
             'subscription_date' => 'required|string|max:25',
 
             // Aggiungi altri campi di validazione necessari
-        ], ['course_id.unique' => 'Iscrizione già effettuata per questo corso.']);
+        ], ['course_id.unique' => 'Iscrizione già effettuata per questo corso.', 'course_id.required' => 'Seleziona un corso!']);
 
         //        $validated['customer_id'] = $customer->id;
         Subscription::create($validated);
@@ -59,8 +59,15 @@ class SubscriptionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Subscription $subscription)
+    public function destroy($id)
     {
         //
+        $subscription = Subscription::findOrFail($id);
+        $subscription->delete();
+
+        /* return redirect()->route('subscription.index')->with('message', [
+            'type' => 'success',
+            'content' => 'Subscription eliminato con successo.'
+        ]); */
     }
 }

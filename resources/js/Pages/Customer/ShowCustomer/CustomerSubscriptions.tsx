@@ -1,7 +1,10 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/Components/ui/avatar";
+import { Button } from "@/Components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
 import { Label } from "@/Components/ui/label";
 import { Subscription } from "@/types";
+import { useForm } from "@inertiajs/react";
+import { Trash } from "lucide-react";
 import React from "react";
 
 type Props = {
@@ -10,6 +13,7 @@ type Props = {
 };
 
 function CustomerSubscriptions({ subscriptions, addSubscription }: Props) {
+    const { delete: destroy } = useForm();
     return (
         <div className="py-3">
             <Card>
@@ -51,6 +55,26 @@ function CustomerSubscriptions({ subscriptions, addSubscription }: Props) {
                                     <Label className="font-bold">Pagato:</Label>
                                     {parseFloat(subscription.price) / 2} €
                                 </div>
+                            </div>
+                            <div>
+                                <Button
+                                    onClick={() => {
+                                        if (
+                                            confirm(
+                                                "Sei sicuro di voler eliminare l'iscrizione?"
+                                            )
+                                        ) {
+                                            destroy(
+                                                route("subscription.destroy", {
+                                                    id: subscription.id,
+                                                })
+                                            );
+                                        }
+                                    }}
+                                    className="flex items-center gap-2"
+                                >
+                                    <Trash className="h-4 w-4" /> Elimina
+                                </Button>
                             </div>
                         </div>
                     ))}
