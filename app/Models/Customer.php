@@ -15,12 +15,14 @@ class Customer extends Model
         'cf',
         'phone',
         'birth_date',
-        'email'
+        'birth_place',
+        'cap',
+        'email',
+        'extra'
     ];
 
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class);
     }
-
 }

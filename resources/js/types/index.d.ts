@@ -28,9 +28,13 @@ export interface Customer {
     id: number;
     firstname: string;
     lastname: string;
+    email: string;
     subscription_date: string;
+    cf: string;
     phone: string;
     birth_date: string;
+    birth_place: string;
+    cap: string;
     extra?: string;
 }
 

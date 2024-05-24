@@ -30,7 +30,7 @@ class SubscriptionController extends Controller
             'subscription_date' => 'required|string|max:25',
 
             // Aggiungi altri campi di validazione necessari
-        ]);
+        ], ['course_id.unique' => 'Iscrizione già effettuata per questo corso.']);
 
         //        $validated['customer_id'] = $customer->id;
         Subscription::create($validated);

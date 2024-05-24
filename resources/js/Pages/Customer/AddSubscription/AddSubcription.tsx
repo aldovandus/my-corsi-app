@@ -32,7 +32,7 @@ const AddSubscription = ({ customer }: { customer: Customer }) => {
             onError: (err) => {
                 if (err.course_id) {
                     console.log({ err });
-                    alert("Questo corso già esiste");
+                    alert(err.course_id);
                 }
             },
         });
@@ -41,7 +41,7 @@ const AddSubscription = ({ customer }: { customer: Customer }) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">
+                <Button variant="destructive">
                     <Plus className="h-5 w-5" /> Nuova iscrizione
                 </Button>
             </DialogTrigger>

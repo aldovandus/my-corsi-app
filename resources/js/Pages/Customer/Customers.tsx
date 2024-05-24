@@ -120,10 +120,10 @@ export const columns: ColumnDef<any>[] = [
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
                             <NavLink
-                                href={route("customer.edit", {
+                                href={route("customer.show", {
                                     id: row.getValue("id"),
                                 })}
-                                active={route().current("customer.edit", {
+                                active={route().current("customer.show", {
                                     id: row.getValue("id"),
                                 })}
                             >

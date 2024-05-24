@@ -26,7 +26,11 @@ const getData = async () => {
     }
 };
 
-export default function CoursesComboBox({ setData }) {
+export default function CoursesComboBox({
+    setData,
+}: {
+    setData(_: string, value: any): void;
+}) {
     const [open, setOpen] = useState(false);
     const [currentCourse, setCurrentCourse] = useState<Course>();
 
@@ -45,12 +49,15 @@ export default function CoursesComboBox({ setData }) {
                     aria-expanded={open}
                     className="w-[200px] justify-between capitalize"
                 >
-                    {currentCourse
+                    {/*   {currentCourse
                         ? courses.find(
                               (course) =>
                                   course.title.toLowerCase() ===
                                   currentCourse.title?.toLowerCase()
                           )?.title
+                        : "Seleziona un corso..."} */}
+                    {currentCourse
+                        ? `${currentCourse?.code}-${currentCourse?.title}`
                         : "Seleziona un corso..."}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
