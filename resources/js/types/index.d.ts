@@ -49,3 +49,5 @@ export interface Subscription {
     birth_date: string;
     extra?: string;
 }
+
+type CustomerWithSubscription = Customer & Subscription;
