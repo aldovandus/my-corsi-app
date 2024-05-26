@@ -1,6 +1,12 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/Components/ui/avatar";
 import { Button } from "@/Components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/Components/ui/card";
 import { Label } from "@/Components/ui/label";
 import { Subscription } from "@/types";
 import { useForm } from "@inertiajs/react";
@@ -22,6 +28,11 @@ function CustomerSubscriptions({ subscriptions, addSubscription }: Props) {
                         <CardTitle>Iscrizioni</CardTitle>
                         {addSubscription}
                     </div>
+                    {subscriptions.length === 0 && (
+                        <CardDescription className="text-md">
+                            Nessuna iscrizione
+                        </CardDescription>
+                    )}
                 </CardHeader>
                 <CardContent className="grid gap-8">
                     {subscriptions.map((subscription) => (

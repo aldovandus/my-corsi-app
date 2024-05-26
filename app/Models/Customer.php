@@ -18,6 +18,7 @@ class Customer extends Model
         'birth_place',
         'cap',
         'email',
+        'address',
         'extra'
     ];
 

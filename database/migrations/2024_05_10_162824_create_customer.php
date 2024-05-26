@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('birth_place')->nullable();
             $table->string('phone')->nullable();
             $table->string('cap')->nullable();
+            $table->string('address')->nullable();
             $table->string('extra')->nullable();
             $table->timestamps();
         });

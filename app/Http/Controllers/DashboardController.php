@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -21,7 +22,9 @@ class DashboardController extends Controller
             ->select('subscription.course_id', 'subscription.price', 'customers.id', 'customers.firstname', 'customers.lastname', 'customers.email', 'subscription.subscription_date', 'course.code', 'course.title') // seleziona i campi desiderati
             ->orderBy('subscription.created_at', 'desc')->take(5)->get();
 
-        return Inertia::render('Dashboard', ['subscriptionsCount' => $subscriptionCount, 'latestSubscriptions' => $latestSubscriptions]);
+        $courses = Course::all()->take(5);
+
+        return Inertia::render('Dashboard', ['subscriptionsCount' => $subscriptionCount, 'latestSubscriptions' => $latestSubscriptions, 'courses' => $courses]);
     }
 
     /**

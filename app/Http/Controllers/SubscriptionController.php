@@ -24,7 +24,7 @@ class SubscriptionController extends Controller
         //
 
         $validated = $request->validate([
-            'course_id' => 'required|unique:subscription',
+            'course_id' => 'required',
             'customer_id' => 'required',
             'price' => 'required|string|max:10',
             'subscription_date' => 'required|string|max:25',

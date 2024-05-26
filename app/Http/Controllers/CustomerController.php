@@ -56,12 +56,21 @@ class CustomerController extends Controller
             'phone' => 'required|string|max:10',
             'cf' => 'required|string|max:11',
             'birth_date' => 'required|string|max:100',
+            'birth_place' => 'required|string|max:100',
+            'cap' => 'required|string|max:10',
+            'address' => 'required|string|max:50',
+            'extra' => 'string|max:250',
+
             // Aggiungi altri campi di validazione necessari
         ], [
             'email.required' => 'Inserisci un indirizzo email',
             'email.email' => "L'indirizzo email non ha un formato valido.",
             'email.unique' => "L'indirizzo email esiste già.",
         ]);
+
+        // Convert to uppercase
+        $validated['cf'] = strtoupper($validated['cf']);
+        //$validated['subscription_date'] = strtoupper($validated['subscription_date']);
 
         Customer::create($validated);
 

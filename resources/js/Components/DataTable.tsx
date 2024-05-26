@@ -1,8 +1,5 @@
-"use client";
-
 import * as React from "react";
 import {
-    ColumnDef,
     ColumnFiltersState,
     SortingState,
     VisibilityState,
@@ -27,7 +24,13 @@ import {
     TableRow,
 } from "@/Components/ui/table";
 
-export function DataTable({ data, columns, newBtn }) {
+interface Props {
+    data: any;
+    columns: any;
+    newBtn: React.ReactNode;
+}
+
+export function DataTable({ data, columns, newBtn }: Props) {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] =
         React.useState<ColumnFiltersState>([]);
@@ -58,17 +61,21 @@ export function DataTable({ data, columns, newBtn }) {
         <div className="w-full">
             <div className="flex items-center justify-between py-4">
                 <Input
-                    placeholder="Filter emails..."
+                    placeholder="Cerca..."
                     value={
                         (table
-                            .getColumn("email")
+                            .getColumn("firstname")
                             ?.getFilterValue() as string) ?? ""
                     }
-                    onChange={(event) =>
+                    onChange={(event) => {
                         table
-                            .getColumn("email")
-                            ?.setFilterValue(event.target.value)
-                    }
+                            .getColumn("firstname")
+                            ?.setFilterValue(event.target.value);
+
+                        table
+                            .getColumn("lastname")
+                            ?.setFilterValue(event.target.value);
+                    }}
                     className="max-w-sm"
                 />
                 {/*  <DropdownMenu>
@@ -149,7 +156,7 @@ export function DataTable({ data, columns, newBtn }) {
                                     colSpan={columns.length}
                                     className="h-24 text-center"
                                 >
-                                    No results.
+                                    Nessun risultato.
                                 </TableCell>
                             </TableRow>
                         )}
@@ -168,7 +175,7 @@ export function DataTable({ data, columns, newBtn }) {
                         onClick={() => table.previousPage()}
                         disabled={!table.getCanPreviousPage()}
                     >
-                        Previous
+                        Indietro
                     </Button>
                     <Button
                         variant="outline"
@@ -176,7 +183,7 @@ export function DataTable({ data, columns, newBtn }) {
                         onClick={() => table.nextPage()}
                         disabled={!table.getCanNextPage()}
                     >
-                        Next
+                        Avanti
                     </Button>
                 </div>
             </div>

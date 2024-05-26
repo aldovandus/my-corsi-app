@@ -4,7 +4,6 @@ import { Button } from "@/Components/ui/button";
 import { Checkbox } from "@radix-ui/react-checkbox";
 import {
     DropdownMenu,
-    DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
@@ -12,7 +11,7 @@ import {
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import NavLink from "@/Components/NavLink";
 
 import { usePage, useForm } from "@inertiajs/react";
@@ -52,10 +51,10 @@ export const columns: ColumnDef<any>[] = [
         ),
     },
     {
-        accessorKey: "status",
-        header: "Status",
+        accessorKey: "cf",
+        header: "Codice Fiscale",
         cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("status")}</div>
+            <div className="capitalize">{row.getValue("cf")}</div>
         ),
     },
     {
@@ -154,12 +153,12 @@ const Customers = ({
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Customers
+                    Clienti
                 </h2>
             }
         >
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             {flash.message && (

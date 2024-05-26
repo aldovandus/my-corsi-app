@@ -4,13 +4,13 @@ import { Input } from "@/Components/ui/input";
 import { Button } from "@/Components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
 import { Label } from "@/Components/ui/label";
-import DatePicker from "@/Components/ui/date-picker";
 import { Customer, PageProps } from "@/types";
 import { Textarea } from "@/Components/ui/textarea";
-import { ArrowLeftIcon, BackpackIcon } from "lucide-react";
+import { ArrowLeftIcon } from "lucide-react";
+import { parse } from "date-fns";
 
 const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
-    const { data, setData, post, processing, errors, hasErrors } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         ...customer,
     });
 
@@ -131,11 +131,29 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                                         <div className="grid w-full items-center gap-1.5">
                                             <Label>Data di nascita</Label>
 
-                                            <DatePicker
+                                            {/* <DatePicker
                                                 onChange={(date) => {
                                                     setData("birth_date", date);
                                                 }}
                                                 label="Data di nascita"
+                                            /> */}
+
+                                            <Input
+                                                type="text"
+                                                onChange={(e) => {
+                                                    setData(
+                                                        "birth_date",
+                                                        parse(
+                                                            e.target.value,
+                                                            "dd/MM/yyyy",
+                                                            new Date()
+                                                        )
+                                                    );
+                                                }}
+                                                maxLength={10}
+                                                minLength={10}
+                                                placeholder="14/05/1991"
+                                                pattern="^(0[1-9]|1[0-9]|2[0-9]|3[01])\/(0[1-9]|1[0-2])\/(19[0-9]{2}|20[01][0-9]|202[0-3])$"
                                             />
                                         </div>
 
@@ -157,7 +175,6 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
 
                                         <div className="grid w-full items-center gap-1.5">
                                             <Label>Cap</Label>
-
                                             <Input
                                                 type="text"
                                                 value={data.cap}
@@ -170,6 +187,22 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                                                 placeholder="Numero di cap"
                                             />
                                         </div>
+                                    </div>
+
+                                    <div className="grid w-full items-center gap-1.5">
+                                        <Label>Indirizzo</Label>
+
+                                        <Input
+                                            type="text"
+                                            value={data.address}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "address",
+                                                    e.target.value
+                                                )
+                                            }
+                                            placeholder="Indirizzo"
+                                        />
                                     </div>
 
                                     <div className="grid w-full gap-1.5">

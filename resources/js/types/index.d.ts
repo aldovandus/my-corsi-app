@@ -30,15 +30,17 @@ export interface Customer {
     lastname: string;
     email: string;
     subscription_date: string;
+    address: string;
     cf: string;
     phone: string;
-    birth_date: string;
+    birth_date: Date;
     birth_place: string;
     cap: string;
     extra?: string;
 }
 
 export interface Subscription {
+    id: number;
     course_id: number;
     customer_id: number;
     code: string;

@@ -1,24 +1,27 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
 import { Label } from "@/Components/ui/label";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Customer, PageProps } from "@/types";
+import { Customer, PageProps, Subscription } from "@/types";
 import CustomerSubscriptions from "./CustomerSubscriptions";
 import AddSubscription from "../AddSubscription/AddSubcription";
+import CustomerDetails from "./CustomerDetails";
 
 function index({
     auth,
     customer,
     subscriptions,
-}: PageProps<{ customer: Customer }>) {
+}: PageProps<{ customer: Customer; subscriptions: Subscription[] }>) {
     return (
         <Authenticated user={auth.user}>
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="mx-auto sm:px-6 lg:px-8">
                     <Card>
                         <CardHeader>
                             <CardTitle>Cliente</CardTitle>
                         </CardHeader>
 
+                        <CustomerDetails />
+                        {/* 
                         <CardContent className="flex justify-between">
                             <div className=" text-gray-900">
                                 <div className="flex gap-3">
@@ -32,7 +35,7 @@ function index({
                                 <div className="flex gap-3">
                                     <Label>Codice Fiscale:</Label>
                                     <span className="font-bold">
-                                        {customer.subscription_date}
+                                        {customer.cf}
                                     </span>
                                 </div>
                                 <div className="flex gap-3">
@@ -55,7 +58,7 @@ function index({
                                     </span>
                                 </div>
                             </div>
-                        </CardContent>
+                        </CardContent> */}
                     </Card>
 
                     <CustomerSubscriptions
