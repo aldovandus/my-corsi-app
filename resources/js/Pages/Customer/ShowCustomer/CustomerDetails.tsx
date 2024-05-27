@@ -43,7 +43,10 @@ function CustomerDetails({ customer }: Props) {
                         <CardDescription>
                             <div className="font-bold">{customer.cf}</div>
                             Nato il :
-                            {format(customer.birth_date, "PPP", { locale: it })}
+                            {customer.birth_date &&
+                                format(customer.birth_date, "PPP", {
+                                    locale: it,
+                                })}
                         </CardDescription>
                     </div>
                     <div className="ml-auto flex items-center gap-1">
