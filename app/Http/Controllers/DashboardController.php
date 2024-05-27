@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Customer;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -17,6 +18,9 @@ class DashboardController extends Controller
         //
         $subscriptionCount = Subscription::count();
 
+        $customerCount = Customer::count();
+        $coursesCount = Course::count();
+
 
         $latestSubscriptions = Subscription::join('customers', 'subscription.customer_id', '=', 'customers.id')->join('course', 'subscription.course_id', '=', 'course.id')
             ->select('subscription.course_id', 'subscription.price', 'customers.id', 'customers.firstname', 'customers.lastname', 'customers.email', 'subscription.subscription_date', 'course.code', 'course.title') // seleziona i campi desiderati
@@ -24,7 +28,7 @@ class DashboardController extends Controller
 
         $courses = Course::all()->take(5);
 
-        return Inertia::render('Dashboard', ['subscriptionsCount' => $subscriptionCount, 'latestSubscriptions' => $latestSubscriptions, 'courses' => $courses]);
+        return Inertia::render('Dashboard', ['customersCount' => $customerCount, 'coursesCount' => $coursesCount, 'subscriptionsCount' => $subscriptionCount, 'latestSubscriptions' => $latestSubscriptions, 'courses' => $courses]);
     }
 
     /**
