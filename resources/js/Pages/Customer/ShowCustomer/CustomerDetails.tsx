@@ -13,19 +13,24 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu";
+import { Customer } from "@/types";
+import { format } from "date-fns";
+import { it } from "date-fns/locale";
 
 import { Copy, Truck, MoreVertical } from "lucide-react";
 
-type Props = {};
+type Props = {
+    customer: Customer;
+};
 
-function CustomerDetails({}: Props) {
+function CustomerDetails({ customer }: Props) {
     return (
         <div>
             <Card className="overflow-hidden" x-chunk="dashboard-05-chunk-4">
                 <CardHeader className="flex flex-row items-start bg-muted/50">
                     <div className="grid gap-0.5">
-                        <CardTitle className="group flex items-center gap-2 text-lg">
-                            Order Oe31b70H
+                        <CardTitle className="group flex items-center gap-2 text-xl">
+                            {customer.firstname} {customer.lastname}
                             <Button
                                 size="icon"
                                 variant="outline"
@@ -36,20 +41,12 @@ function CustomerDetails({}: Props) {
                             </Button>
                         </CardTitle>
                         <CardDescription>
-                            Date: November 23, 2023
+                            <div className="font-bold">{customer.cf}</div>
+                            Nato il :
+                            {format(customer.birth_date, "PPP", { locale: it })}
                         </CardDescription>
                     </div>
                     <div className="ml-auto flex items-center gap-1">
-                        <Button
-                            size="sm"
-                            variant="outline"
-                            className="h-8 gap-1"
-                        >
-                            <Truck className="h-3.5 w-3.5" />
-                            <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-                                Track Order
-                            </span>
-                        </Button>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button
@@ -62,31 +59,41 @@ function CustomerDetails({}: Props) {
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
-                                <DropdownMenuItem>Edit</DropdownMenuItem>
-                                <DropdownMenuItem>Export</DropdownMenuItem>
+                                <DropdownMenuItem>Modifica</DropdownMenuItem>
+                                <DropdownMenuItem>Esporta</DropdownMenuItem>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem>Trash</DropdownMenuItem>
+                                <DropdownMenuItem>Elimina</DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
                 </CardHeader>
                 <CardContent className="p-6 text-sm">
                     <div className="grid gap-3">
-                        <div className="font-semibold">Order Details</div>
-                        <ul className="grid gap-3">
-                            <li className="flex items-center justify-between">
-                                <span className="text-muted-foreground">
-                                    Glimmer Lamps x <span>2</span>
-                                </span>
-                                <span>$250.00</span>
-                            </li>
-                            <li className="flex items-center justify-between">
-                                <span className="text-muted-foreground">
-                                    Aqua Filters x <span>1</span>
-                                </span>
-                                <span>$49.00</span>
-                            </li>
-                        </ul>
+                        <div className="font-semibold">
+                            Informazioni cliente
+                        </div>
+                        <dl className="grid gap-3">
+                            <div className="flex items-center gap-1">
+                                <dt className="font-bold">Email:</dt>
+                                <dd>
+                                    <a href="mailto:">{customer.email}</a>
+                                </dd>
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <dt className="font-bold">Telefono:</dt>
+                                <dd>
+                                    <a href="tel:">{customer.phone}</a>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div className="grid gap-3 mt-3">
+                        <div className="flex items-center gap-1">
+                            <dt className="font-bold">Indirizzo:</dt>
+                            <dd>
+                                {customer.address} - {customer.cap}
+                            </dd>
+                        </div>
                     </div>
                 </CardContent>
             </Card>

@@ -20,7 +20,7 @@ function index({
                             <CardTitle>Cliente</CardTitle>
                         </CardHeader>
 
-                        <CustomerDetails />
+                        <CustomerDetails customer={customer} />
                         {/* 
                         <CardContent className="flex justify-between">
                             <div className=" text-gray-900">
