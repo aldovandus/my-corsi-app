@@ -16,13 +16,17 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import { Plus, Save, X } from "lucide-react";
 import DatePicker from "@/Components/ui/date-picker";
 import { useForm } from "@inertiajs/react";
-import { useState } from "react";
-import { Customer } from "@/types";
+import { Customer, CustomerWithSubscription, Subscription } from "@/types";
 import CoursesComboBox from "./CoursesComboBox";
-import clsx from "clsx";
+
+interface Props {
+    customer_id: CustomerWithSubscription["customer_id"];
+    price?: CustomerWithSubscription["price"];
+    subscription_date?: Date;
+}
 
 const AddSubscription = ({ customer }: { customer: Customer }) => {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm<Props>({
         customer_id: customer.id,
     });
 
@@ -30,10 +34,10 @@ const AddSubscription = ({ customer }: { customer: Customer }) => {
         post(route("subscription.store"), {
             onSuccess: () => {
                 document.getElementById("closeDialog")?.click();
+                reset();
             },
             onError: (err) => {
                 if (err.course_id) {
-                    console.log({ err });
                     alert(err.course_id);
                 }
             },
@@ -57,24 +61,16 @@ const AddSubscription = ({ customer }: { customer: Customer }) => {
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="name" className="text-right">
-                            Corso
-                        </Label>
-                        {/*  <Input
-                            id="name"
-                            placeholder="Nome Corso"
-                            className="col-span-3"
-                        /> */}
+                        <Label className="text-right">Corso</Label>
 
                         <CoursesComboBox setData={setData} />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="username" className="text-right">
-                            Prezzo
-                        </Label>
+                        <Label className="text-right">Prezzo</Label>
                         <Input
                             id="price"
                             color="red"
+                            type="number"
                             defaultValue={data.price}
                             className="col-span-3"
                             style={{
@@ -87,9 +83,7 @@ const AddSubscription = ({ customer }: { customer: Customer }) => {
                         />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="username" className="text-right">
-                            Data
-                        </Label>
+                        <Label className="text-right">Data</Label>
                         <DatePicker
                             defaultDate={new Date()}
                             onChange={(date) => {
