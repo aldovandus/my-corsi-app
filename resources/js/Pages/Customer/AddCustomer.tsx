@@ -120,6 +120,9 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                                         <Input
                                             type="text"
                                             value={data.cf}
+                                            className="uppercase"
+                                            maxLength={16}
+                                            minLength={16}
                                             onChange={(e) =>
                                                 setData("cf", e.target.value)
                                             }

@@ -54,7 +54,7 @@ class CustomerController extends Controller
             'lastname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:customers',
             'phone' => 'required|string|max:10',
-            'cf' => 'required|string|max:11',
+            'cf' => 'required|string|max:16',
             'birth_date' => 'required|string|max:100',
             'birth_place' => 'required|string|max:100',
             'cap' => 'required|string|max:10',
