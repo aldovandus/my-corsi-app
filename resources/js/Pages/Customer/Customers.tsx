@@ -46,6 +46,7 @@ export const columns: ColumnDef<any>[] = [
     {
         accessorKey: "id",
         header: "Id",
+
         cell: ({ row }) => (
             <div className="capitalize">{row.getValue("id")}</div>
         ),
@@ -84,6 +85,20 @@ export const columns: ColumnDef<any>[] = [
         ),
     },
     {
+        accessorKey: "email",
+        header: () => <div className="">Email</div>,
+        cell: ({ row }) => (
+            <div className="lowercase">{row.getValue("email")}</div>
+        ),
+    },
+    {
+        accessorKey: "phone",
+        header: () => <div className="">Telefono</div>,
+        cell: ({ row }) => (
+            <div className="lowercase">{row.getValue("phone")}</div>
+        ),
+    },
+    {
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {
@@ -99,9 +114,22 @@ export const columns: ColumnDef<any>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Azioni</DropdownMenuLabel>
+
+                        <DropdownMenuItem>
+                            <NavLink
+                                href={route("customer.show", {
+                                    id: row.getValue("id"),
+                                })}
+                                active={route().current("customer.show", {
+                                    id: row.getValue("id"),
+                                })}
+                            >
+                                <span>Vedi</span>
+                            </NavLink>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
                         <DropdownMenuItem
                             onClick={() => {
-                                // navigator.clipboard.writeText(payment.id)\
                                 if (
                                     confirm(
                                         "Sei sicuro di voler eliminare il cliente?"
@@ -116,19 +144,6 @@ export const columns: ColumnDef<any>[] = [
                             }}
                         >
                             Elimina
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                            <NavLink
-                                href={route("customer.show", {
-                                    id: row.getValue("id"),
-                                })}
-                                active={route().current("customer.show", {
-                                    id: row.getValue("id"),
-                                })}
-                            >
-                                Vedi Cliente
-                            </NavLink>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
@@ -158,7 +173,7 @@ const Customers = ({
             }
         >
             <div className="py-12">
-                <div className="mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             {flash.message && (

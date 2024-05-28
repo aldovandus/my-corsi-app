@@ -71,43 +71,10 @@ export function DataTable({ data, columns, newBtn }: Props) {
                         table
                             .getColumn("firstname")
                             ?.setFilterValue(event.target.value);
-
-                        table
-                            .getColumn("lastname")
-                            ?.setFilterValue(event.target.value);
                     }}
                     className="max-w-sm"
                 />
-                {/*  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto">
-                            Columns <ChevronDown className="ml-2 h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        {table
-                            .getAllColumns()
-                            .filter((column) => column.getCanHide())
-                            .map((column) => {
-                                return (
-                                    <DropdownMenuCheckboxItem
-                                        key={column.id}
-                                        className="capitalize"
-                                        checked={column.getIsVisible()}
-                                        onCheckedChange={(value) =>
-                                            column.toggleVisibility(!!value)
-                                        }
-                                    >
-                                        {column.id}
-                                    </DropdownMenuCheckboxItem>
-                                );
-                            })}
-                    </DropdownMenuContent>
-                </DropdownMenu> */}
 
-                {/*   <NavLink href={route("customer.add")} active={false}>
-                    <Button>Nuovo Cliente</Button>
-                </NavLink> */}
                 {newBtn}
             </div>
             <div className="rounded-md border">

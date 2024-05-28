@@ -28,11 +28,11 @@ function CustomerSubscriptions({ subscriptions, addSubscription }: Props) {
                         <CardTitle>Iscrizioni</CardTitle>
                         {addSubscription}
                     </div>
-                    {subscriptions.length === 0 && (
-                        <CardDescription className="text-md">
-                            Nessuna iscrizione
-                        </CardDescription>
-                    )}
+                    <CardDescription className="text-md">
+                        {subscriptions.length === 0
+                            ? "Nessuna iscrizione"
+                            : "Gestisci le iscrizioni del cliente"}
+                    </CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-8">
                     {subscriptions.map((subscription) => (

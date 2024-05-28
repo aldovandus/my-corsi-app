@@ -51,7 +51,7 @@ const AddSubscription = ({ customer }: { customer: Customer }) => {
                     <Plus className="h-5 w-5" /> Nuova iscrizione
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[495px]">
                 <DialogHeader>
                     <DialogTitle>Nuova Iscrizione</DialogTitle>
                     <DialogDescription>
