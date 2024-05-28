@@ -28,7 +28,9 @@ const AddSubscription = ({ customer }: { customer: Customer }) => {
 
     const onSave = () => {
         post(route("subscription.store"), {
-            onSuccess: () => {},
+            onSuccess: () => {
+                document.getElementById("closeDialog")?.click();
+            },
             onError: (err) => {
                 if (err.course_id) {
                     console.log({ err });
