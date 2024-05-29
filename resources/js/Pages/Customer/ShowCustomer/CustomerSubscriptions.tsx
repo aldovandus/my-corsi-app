@@ -1,3 +1,4 @@
+import NavLink from "@/Components/NavLink";
 import { Avatar, AvatarImage, AvatarFallback } from "@/Components/ui/avatar";
 import { Button } from "@/Components/ui/button";
 import {
@@ -7,10 +8,18 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/Components/ui/dropdown-menu";
 import { Label } from "@/Components/ui/label";
 import { Subscription } from "@/types";
 import { useForm } from "@inertiajs/react";
-import { Trash } from "lucide-react";
+import { MoreHorizontal, Trash } from "lucide-react";
 import React from "react";
 
 type Props = {
@@ -67,26 +76,62 @@ function CustomerSubscriptions({ subscriptions, addSubscription }: Props) {
                                     {parseFloat(subscription.price) / 2} €
                                 </div>
                             </div>
-                            <div>
-                                <Button
-                                    onClick={() => {
-                                        if (
-                                            confirm(
-                                                "Sei sicuro di voler eliminare l'iscrizione?"
-                                            )
-                                        ) {
-                                            destroy(
-                                                route("subscription.destroy", {
-                                                    id: subscription.id,
-                                                })
-                                            );
-                                        }
-                                    }}
-                                    className="flex items-center gap-2"
-                                >
-                                    <Trash className="h-4 w-4" /> Elimina
-                                </Button>
-                            </div>
+
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button
+                                        variant="ghost"
+                                        className="h-8 w-8 p-0"
+                                    >
+                                        <span className="sr-only">
+                                            apri menu
+                                        </span>
+                                        <MoreHorizontal className="h-4 w-4" />
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                    <DropdownMenuLabel>
+                                        Azioni
+                                    </DropdownMenuLabel>
+
+                                    <DropdownMenuItem>
+                                        <NavLink
+                                            href={route("customer.show", {
+                                                id: 1,
+                                            })}
+                                            active={route().current(
+                                                "customer.show",
+                                                {
+                                                    id: 1,
+                                                }
+                                            )}
+                                        >
+                                            <span>Vedi</span>
+                                        </NavLink>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem
+                                        onClick={() => {
+                                            if (
+                                                confirm(
+                                                    "Sei sicuro di voler eliminare l'iscrizione?"
+                                                )
+                                            ) {
+                                                destroy(
+                                                    route(
+                                                        "subscription.destroy",
+                                                        {
+                                                            id: subscription.id,
+                                                        }
+                                                    )
+                                                );
+                                            }
+                                        }}
+                                    >
+                                        Elimina
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
                         </div>
                     ))}
                 </CardContent>
