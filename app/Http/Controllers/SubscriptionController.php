@@ -6,6 +6,7 @@ use App\Models\Subscription;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class SubscriptionController extends Controller
 {
@@ -48,9 +49,13 @@ class SubscriptionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Subscription $subscription)
+    public function show($id)
     {
         //
+
+        return Inertia::render('Subscription/index', [
+            'subscriptionId' => $id
+        ]);
     }
 
     /**
