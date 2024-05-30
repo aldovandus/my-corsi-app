@@ -53,8 +53,14 @@ class SubscriptionController extends Controller
     {
         //
 
+
+        $subscriptionsWithCustomerAndCourse = Subscription::join('course', 'subscription.course_id', '=', 'course.id') ->leftJoin('payments', 'subscription.id', '=', 'payments.subscription_id')
+            ->select('subscription.id','subscription.price', 'course.code', 'course.title', 'course.price', 'payments.*') // seleziona i campi desiderati
+            ->where('subscription.id', $id)->get();
+
         return Inertia::render('Subscription/index', [
-            'subscriptionId' => $id
+            'subscription' => $subscriptionsWithCustomerAndCourse,
+            
         ]);
     }
 
