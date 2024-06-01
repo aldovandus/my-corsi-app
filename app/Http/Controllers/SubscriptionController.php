@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subscription;
 use App\Models\Customer;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -54,13 +55,19 @@ class SubscriptionController extends Controller
         //
 
 
-        $subscriptionsWithCustomerAndCourse = Subscription::join('course', 'subscription.course_id', '=', 'course.id') ->leftJoin('payments', 'subscription.id', '=', 'payments.subscription_id')
-            ->select('subscription.id','subscription.price', 'course.code', 'course.title', 'course.price', 'payments.*') // seleziona i campi desiderati
-            ->where('subscription.id', $id)->get();
+        $subscriptionsWithCustomerAndCourse = Subscription::join('course', 'subscription.course_id', '=', 'course.id')->join('customers', 'subscription.customer_id', '=', 'customers.id')
+            ->select('customers.cf', 'subscription.id', 'subscription.price as subscriptionPrice', 'course.code', 'course.title', 'course.price as coursePrice') // seleziona i campi desiderati
+            ->where('subscription.id', $id)->first();
+
+        $payments = Payment::where('subscription_id', $id)->get();
+
+        $totalPayments = $payments->sum('amount'); // Supponendo che il campo dei pagamenti si chiami 'amount'
+
 
         return Inertia::render('Subscription/index', [
             'subscription' => $subscriptionsWithCustomerAndCourse,
-            
+            'payments' => $payments,
+            'totalPayments' => $totalPayments
         ]);
     }
 

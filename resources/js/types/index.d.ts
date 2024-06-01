@@ -52,4 +52,11 @@ export interface Subscription {
     extra?: string;
 }
 
+export interface Payment {
+    id: number;
+    method: string;
+    payment_date: Date;
+    amount: number;
+}
+
 type CustomerWithSubscription = Customer & Subscription;

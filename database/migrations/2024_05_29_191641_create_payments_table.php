@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-       /*  Schema::create('payments', function (Blueprint $table) {
+        /*  Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->string('method');
             $table->string('amount');
@@ -23,14 +23,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('subscription_id');
             $table->string('method');
-            $table->decimal('amount', 8, 2);
+            $table->decimal('amount', 8, 2)->change();
             $table->timestamp('payment_date');
             $table->timestamps();
 
             // Aggiunta della chiave esterna
             $table->foreign('subscription_id')->references('id')->on('subscription')->onDelete('cascade');
         });
-
     }
 
     /**

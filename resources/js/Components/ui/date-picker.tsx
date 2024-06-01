@@ -17,10 +17,12 @@ const DatePicker = ({
     label = "Scegli una data",
     onChange,
     defaultDate,
+    className,
 }: {
     label?: string;
     onChange?(date: Date): void;
     defaultDate?: Date;
+    className?: string;
 }) => {
     const [date, setDate] = useState<Date | null>();
 
@@ -38,7 +40,8 @@ const DatePicker = ({
                     variant={"outline"}
                     className={cn(
                         "w-[280px] justify-start text-left font-normal",
-                        !date && "text-muted-foreground"
+                        !date && "text-muted-foreground",
+                        className
                     )}
                 >
                     <CalendarIcon className="mr-2 h-4 w-4" />

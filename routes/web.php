@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SubscriptionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/subscription/{id}', [SubscriptionController::class, 'destroy'])->name('subscription.destroy');
     Route::get('/courses/show/{course}', [CourseController::class, 'show'])->name('course.show');
     Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('course.destroy');
+    Route::post('/payment/store', [PaymentController::class, 'store'])->name('payment.store');
+    Route::delete('/payment/{id}', [PaymentController::class, 'destroy'])->name('payment.destroy');
 });
 
 require __DIR__ . '/auth.php';

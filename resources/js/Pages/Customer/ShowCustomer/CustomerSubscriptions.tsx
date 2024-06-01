@@ -96,13 +96,13 @@ function CustomerSubscriptions({ subscriptions, addSubscription }: Props) {
 
                                     <DropdownMenuItem>
                                         <NavLink
-                                            href={route("customer.show", {
-                                                id: 1,
+                                            href={route("subscription.show", {
+                                                id: subscription.id,
                                             })}
                                             active={route().current(
-                                                "customer.show",
+                                                "subscription.show",
                                                 {
-                                                    id: 1,
+                                                    id: subscription.id,
                                                 }
                                             )}
                                         >
