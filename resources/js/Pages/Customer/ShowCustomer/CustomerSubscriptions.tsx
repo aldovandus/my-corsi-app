@@ -73,7 +73,7 @@ function CustomerSubscriptions({ subscriptions, addSubscription }: Props) {
                                 <div className="text-green-800">
                                     {" "}
                                     <Label className="font-bold">Pagato:</Label>
-                                    {parseFloat(subscription.price) / 2} €
+                                    {subscription.total} €
                                 </div>
                             </div>
 

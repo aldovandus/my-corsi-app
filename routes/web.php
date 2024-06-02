@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
     Route::get('/customers/edit/{id}', [CustomerController::class, 'edit'])->name('customer.edit');
-    Route::get('/customers/show/{customer}', [CustomerController::class, 'show'])->name('customer.show');
+    Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('customer.show');
     Route::patch('/customers/update', [CustomerController::class, 'update'])->name('customer.update');
     Route::get('/customers/add', [CustomerController::class, 'add'])->name('customer.add');
     Route::post('/customers/store', [CustomerController::class, 'store'])->name('customer.store');

@@ -50,6 +50,7 @@ export interface Subscription {
     phone: string;
     birth_date: string;
     extra?: string;
+    total?: string;
 }
 
 export interface Payment {

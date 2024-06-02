@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Models\Customer;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
@@ -86,15 +88,16 @@ class CustomerController extends Controller
         $customer = Customer::findOrFail($request->id);
         $customer->update($request->only('firstname', 'lastname'));
 
-        return redirect()->route('customer.edit', $request->id)->with('success', 'Customer updated successfully.');
+        return redirect()->route('customer.edit', $request->id)->with('success', 'Cliente creato correttamente.');
     }
 
     public function show(Customer $customer)
     {
 
         $subscriptionsWithCourses = Subscription::join('course', 'subscription.course_id', '=', 'course.id')
-            ->select('subscription.id', 'subscription.price', 'course.code', 'course.title', 'course.price') // seleziona i campi desiderati
-            ->where('customer_id', $customer->id)->get();
+            ->join('payments', 'payments.subscription_id', 'subscription.id')
+            ->select('subscription.id', 'subscription.price', 'course.code', 'course.title', DB::raw('sum(payments.amount) as total')) // seleziona i campi desiderati
+            ->where('customer_id', $customer->id)->groupBy('subscription.id')->get();
 
         return Inertia::render('Customer/ShowCustomer/index', [
             'customer' => $customer,
