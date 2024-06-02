@@ -37,7 +37,7 @@ function index({
     payments,
     totalPayments,
 }: PageProps<{
-    subscription: Subscription;
+    subscription: Subscription & { subscriptionPrice: string };
     payments: Payment[];
     totalPayments: number;
 }>) {
@@ -63,6 +63,9 @@ function index({
                                         {subscription?.title}
                                     </div>
                                     <div>
+                                        <span className="font-bold">
+                                            Prezzo:{" "}
+                                        </span>
                                         {subscription?.subscriptionPrice}€
                                     </div>
                                 </CardDescription>
@@ -134,9 +137,7 @@ function index({
                                                             Azioni
                                                         </DropdownMenuLabel>
                                                         <DropdownMenuSeparator />
-                                                        <DropdownMenuItem>
-                                                            Vedi
-                                                        </DropdownMenuItem>
+
                                                         <DropdownMenuItem>
                                                             Modifica
                                                         </DropdownMenuItem>
@@ -168,11 +169,28 @@ function index({
                                 </TableBody>
                                 <TableFooter>
                                     <TableRow>
-                                        <TableCell colSpan={3}>
+                                        <TableCell
+                                            className="text-lg"
+                                            colSpan={3}
+                                        >
                                             Totale
                                         </TableCell>
-                                        <TableCell className="">
+                                        <TableCell className="text-lg">
                                             {totalPayments} €
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow className="bg-white">
+                                        <TableCell
+                                            className="text-md"
+                                            colSpan={3}
+                                        >
+                                            Da Saldare
+                                        </TableCell>
+                                        <TableCell className="text-md">
+                                            {parseFloat(
+                                                subscription.subscriptionPrice
+                                            ) - totalPayments}
+                                            €
                                         </TableCell>
                                     </TableRow>
                                 </TableFooter>

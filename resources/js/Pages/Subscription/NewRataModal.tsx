@@ -1,5 +1,5 @@
 import { Plus } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/Components/ui/button";
 import Modal from "@/Components/Modal";
 import { useForm } from "@inertiajs/react";
@@ -19,7 +19,7 @@ import { Payment } from "@/types";
 type Props = Partial<Payment> & { subscription_id: number };
 
 function NewRataModal({ subscription_id }: Props) {
-    const { post, hasErrors, errors, setData } = useForm<Props>({
+    const { post, errors, setData, reset, clearErrors } = useForm<Props>({
         subscription_id,
     });
     const [show, setShow] = useState(false);
@@ -29,6 +29,8 @@ function NewRataModal({ subscription_id }: Props) {
     };
     const onClose = () => {
         setShow(false);
+        reset();
+        clearErrors();
     };
 
     return (
@@ -37,19 +39,26 @@ function NewRataModal({ subscription_id }: Props) {
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
-                        //setShow(false);
-                        post(route("payment.store"));
+                        post(route("payment.store"), {
+                            onSuccess: () => {
+                                setShow(false);
+                                reset();
+                            },
+                            /*   onError: (err) => {
+                                if (err.overamount) alert(err.overamount);
+                            }, */
+                        });
                     }}
                     className="p-6"
                 >
                     <h2 className="text-lg font-medium text-gray-900">
-                        Aggiungi una nuova rata! {hasErrors.toString()}
+                        Aggiungi una nuova rata!
                     </h2>
 
                     <div className="flex flex-col gap-3 mt-6">
-                        {errors.method && (
-                            <div className="text-red-500">{errors.method}</div>
-                        )}
+                        {Object.keys(errors).map((key) => (
+                            <div className="text-red-500">{errors[key]}</div>
+                        ))}
                         {/*   <div>
                             <Input
                                 minLength={1}
