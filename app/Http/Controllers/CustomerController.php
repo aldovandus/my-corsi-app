@@ -95,7 +95,7 @@ class CustomerController extends Controller
     {
 
         $subscriptionsWithCourses = Subscription::join('course', 'subscription.course_id', '=', 'course.id')
-            ->join('payments', 'payments.subscription_id', 'subscription.id')
+            ->leftjoin('payments', 'payments.subscription_id', 'subscription.id')
             ->select('subscription.id', 'subscription.price', 'course.code', 'course.title', DB::raw('sum(payments.amount) as total')) // seleziona i campi desiderati
             ->where('customer_id', $customer->id)->groupBy('subscription.id')->get();
 
