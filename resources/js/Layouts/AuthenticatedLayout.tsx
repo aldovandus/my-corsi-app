@@ -4,6 +4,7 @@ import {
     Copy,
     CreditCard,
     File,
+    GraduationCap,
     Home,
     LineChart,
     ListFilter,
@@ -73,11 +74,21 @@ import { Link } from "@inertiajs/react";
 import { PropsWithChildren, ReactNode } from "react";
 import { User } from "@/types";
 
+type BreadcrumbRoute = {
+    url: string;
+    label: string;
+};
+
 export default function Authenticated({
     user,
     header,
     children,
-}: PropsWithChildren<{ user: User; header?: ReactNode }>) {
+    breadcrumbRoutes,
+}: PropsWithChildren<{
+    user: User;
+    header?: ReactNode;
+    breadcrumbRoutes?: BreadcrumbRoute[];
+}>) {
     return (
         <div className="flex min-h-screen w-full flex-col bg-muted/40">
             <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -93,7 +104,7 @@ export default function Authenticated({
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link
-                                    href="#"
+                                    href={route("dashboard")}
                                     className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                                 >
                                     <Home className="h-5 w-5" />
@@ -105,7 +116,7 @@ export default function Authenticated({
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
-                    <TooltipProvider>
+                    {/*  <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link
@@ -118,40 +129,39 @@ export default function Authenticated({
                             </TooltipTrigger>
                             <TooltipContent side="right">Orders</TooltipContent>
                         </Tooltip>
-                    </TooltipProvider>
+                    </TooltipProvider> */}
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link
-                                    href="#"
-                                    className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                                >
-                                    <Package className="h-5 w-5" />
-                                    <span className="sr-only">Products</span>
-                                </Link>
-                            </TooltipTrigger>
-                            <TooltipContent side="right">
-                                Products
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
-                    <TooltipProvider>
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <Link
-                                    href="#"
+                                    href={route("customer.index")}
                                     className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                                 >
                                     <Users2 className="h-5 w-5" />
-                                    <span className="sr-only">Customers</span>
+                                    <span className="sr-only">Clienti</span>
                                 </Link>
                             </TooltipTrigger>
                             <TooltipContent side="right">
-                                Customers
+                                Clienti
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
                     <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Link
+                                    href={route("course.index")}
+                                    className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                                >
+                                    <GraduationCap className="h-5 w-5" />
+                                    <span className="sr-only">Corsi</span>
+                                </Link>
+                            </TooltipTrigger>
+                            <TooltipContent side="right">Corsi</TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+
+                    {/*   <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link
@@ -166,7 +176,7 @@ export default function Authenticated({
                                 Analytics
                             </TooltipContent>
                         </Tooltip>
-                    </TooltipProvider>
+                    </TooltipProvider> */}
                 </nav>
                 <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
                     <TooltipProvider>
@@ -251,10 +261,25 @@ export default function Authenticated({
                         <BreadcrumbList>
                             <BreadcrumbItem>
                                 <BreadcrumbLink asChild>
-                                    <Link href="#">Dashboard</Link>
+                                    <Link href={route("dashboard")}>
+                                        Dashboard
+                                    </Link>
                                 </BreadcrumbLink>
                             </BreadcrumbItem>
-                            <BreadcrumbSeparator />
+                            {breadcrumbRoutes?.map(({ url, label }, index) => (
+                                <>
+                                    {<BreadcrumbSeparator />}
+
+                                    <BreadcrumbItem>
+                                        <BreadcrumbLink asChild>
+                                            <Link href={route(url)}>
+                                                {label}
+                                            </Link>
+                                        </BreadcrumbLink>
+                                    </BreadcrumbItem>
+                                </>
+                            ))}
+                            {/*  <BreadcrumbSeparator />
                             <BreadcrumbItem>
                                 <BreadcrumbLink asChild>
                                     <Link href="#">Orders</Link>
@@ -263,7 +288,7 @@ export default function Authenticated({
                             <BreadcrumbSeparator />
                             <BreadcrumbItem>
                                 <BreadcrumbPage>Recent Orders</BreadcrumbPage>
-                            </BreadcrumbItem>
+                            </BreadcrumbItem> */}
                         </BreadcrumbList>
                     </Breadcrumb>
                     <div className="relative ml-auto flex-1 md:grow-0">
