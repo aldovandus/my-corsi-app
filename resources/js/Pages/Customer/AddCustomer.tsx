@@ -28,74 +28,96 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                 </h2>
             }
         >
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <Link href={route("customer.index")}>
-                        <div className="flex gap-2 items-center py-4 cursor-pointer">
-                            <ArrowLeftIcon className="h-5 w-5" />
-                            <Label className="text-2xl cursor-pointer">
-                                Clienti
-                            </Label>
+            <form onSubmit={submit}>
+                <div className="">
+                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div className="flex gap-2">
+                            <Link href={route("customer.index")}>
+                                <div className="flex gap-2 items-center py-4 cursor-pointer">
+                                    <ArrowLeftIcon className="h-5 w-5" />
+                                    <Label className="text-2xl cursor-pointer">
+                                        Clienti
+                                    </Label>
+                                </div>
+                            </Link>
+                            <div className="hidden items-center gap-2 md:ml-auto md:flex">
+                                <Button
+                                    onClick={() => {
+                                        window.history.back();
+                                    }}
+                                    variant="outline"
+                                    size="sm"
+                                >
+                                    Annulla
+                                </Button>
+
+                                <Button type="submit" size="sm">
+                                    Salva Cliente
+                                </Button>
+                            </div>
                         </div>
-                    </Link>
 
-                    <Card className="">
-                        <CardHeader>
-                            <CardTitle>Nuovo Cliente</CardTitle>
-                            <div className="text-red-400">{errors?.email}</div>
-                        </CardHeader>
-
-                        <CardContent>
-                            <form onSubmit={submit}>
-                                <div className="flex flex-col gap-3">
-                                    <div className="flex gap-6">
-                                        <div className="grid w-full items-center gap-1.5">
-                                            <Label>Nome</Label>
-                                            <Input
-                                                type="text"
-                                                value={data.firstname}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "firstname",
-                                                        e.target.value
-                                                    )
-                                                }
-                                                placeholder="Nome"
-                                            />
-                                        </div>
-
-                                        <div className="grid w-full items-center gap-1.5">
-                                            <Label>Cognome</Label>
-                                            <Input
-                                                type="text"
-                                                value={data.lastname}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "lastname",
-                                                        e.target.value
-                                                    )
-                                                }
-                                                placeholder="Cognome"
-                                            />
-                                        </div>
+                        <div className="grid md:grid-cols-3 gap-4">
+                            <Card className="md:col-span-2">
+                                <CardHeader>
+                                    <CardTitle>Nuovo Cliente</CardTitle>
+                                    <div className="text-red-400">
+                                        {errors?.email}
                                     </div>
+                                </CardHeader>
 
-                                    <div className="flex gap-6">
-                                        <div className="grid w-full items-center gap-1.5">
-                                            <Label htmlFor="email">Email</Label>
-                                            <Input
-                                                type="text"
-                                                value={data.email}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "email",
-                                                        e.target.value
-                                                    )
-                                                }
-                                                placeholder="Email"
-                                            />
+                                <CardContent>
+                                    <div className="flex flex-col gap-3">
+                                        <div className="flex gap-6">
+                                            <div className="grid w-full items-center gap-1.5">
+                                                <Label>Nome</Label>
+                                                <Input
+                                                    type="text"
+                                                    value={data.firstname}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "firstname",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    placeholder="Nome"
+                                                />
+                                            </div>
+
+                                            <div className="grid w-full items-center gap-1.5">
+                                                <Label>Cognome</Label>
+                                                <Input
+                                                    type="text"
+                                                    value={data.lastname}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "lastname",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    placeholder="Cognome"
+                                                />
+                                            </div>
                                         </div>
 
+                                        <div className="flex gap-6">
+                                            <div className="grid w-full items-center gap-1.5">
+                                                <Label htmlFor="email">
+                                                    Email
+                                                </Label>
+                                                <Input
+                                                    type="text"
+                                                    value={data.email}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "email",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    placeholder="Email"
+                                                />
+                                            </div>
+                                        </div>
                                         <div className="grid w-full items-center gap-1.5">
                                             <Label htmlFor="phone">
                                                 Telefono
@@ -113,103 +135,120 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                                                 placeholder="Telefono"
                                             />
                                         </div>
-                                    </div>
+                                        <div>
+                                            <Label>Codice Fiscale</Label>
+                                            <Input
+                                                type="text"
+                                                value={data.cf}
+                                                className="uppercase"
+                                                maxLength={16}
+                                                minLength={16}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "cf",
+                                                        e.target.value
+                                                    )
+                                                }
+                                                placeholder="Codice fiscale"
+                                            />
+                                        </div>
 
-                                    <div>
-                                        <Label>Codice Fiscale</Label>
-                                        <Input
-                                            type="text"
-                                            value={data.cf}
-                                            className="uppercase"
-                                            maxLength={16}
-                                            minLength={16}
-                                            onChange={(e) =>
-                                                setData("cf", e.target.value)
-                                            }
-                                            placeholder="Codice fiscale"
-                                        />
-                                    </div>
+                                        <div className="flex gap-3 w-full">
+                                            <div className="grid w-full items-center gap-1.5">
+                                                <Label>Data di nascita</Label>
 
-                                    <div className="flex gap-3 w-full">
-                                        <div className="grid w-full items-center gap-1.5">
-                                            <Label>Data di nascita</Label>
-
-                                            {/* <DatePicker
+                                                {/* <DatePicker
                                                 onChange={(date) => {
                                                     setData("birth_date", date);
                                                 }}
                                                 label="Data di nascita"
                                             /> */}
 
-                                            <Input
-                                                type="text"
-                                                onChange={(e) => {
-                                                    setData(
-                                                        "birth_date",
-                                                        parse(
-                                                            e.target.value,
-                                                            "dd/MM/yyyy",
-                                                            new Date()
+                                                <Input
+                                                    type="text"
+                                                    onChange={(e) => {
+                                                        setData(
+                                                            "birth_date",
+                                                            parse(
+                                                                e.target.value,
+                                                                "dd/MM/yyyy",
+                                                                new Date()
+                                                            )
+                                                        );
+                                                    }}
+                                                    maxLength={10}
+                                                    minLength={10}
+                                                    placeholder="14/05/1991"
+                                                    pattern="^(0[1-9]|1[0-9]|2[0-9]|3[01])\/(0[1-9]|1[0-2])\/(19[0-9]{2}|20[01][0-9]|202[0-3])$"
+                                                />
+                                            </div>
+
+                                            <div className="grid w-full items-center gap-1.5">
+                                                <Label>Luogo di Nascita</Label>
+
+                                                <Input
+                                                    type="text"
+                                                    value={data.birth_place}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "birth_place",
+                                                            e.target.value
                                                         )
-                                                    );
-                                                }}
-                                                maxLength={10}
-                                                minLength={10}
-                                                placeholder="14/05/1991"
-                                                pattern="^(0[1-9]|1[0-9]|2[0-9]|3[01])\/(0[1-9]|1[0-2])\/(19[0-9]{2}|20[01][0-9]|202[0-3])$"
-                                            />
+                                                    }
+                                                    placeholder="Scrivi la città di nascita"
+                                                />
+                                            </div>
+
+                                            <div className="grid w-full items-center gap-1.5">
+                                                <Label>Cap</Label>
+                                                <Input
+                                                    type="text"
+                                                    value={data.cap}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "cap",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    placeholder="Numero di cap"
+                                                />
+                                            </div>
                                         </div>
 
                                         <div className="grid w-full items-center gap-1.5">
-                                            <Label>Luogo di Nascita</Label>
+                                            <Label>Indirizzo</Label>
 
                                             <Input
                                                 type="text"
-                                                value={data.birth_place}
+                                                value={data.address}
                                                 onChange={(e) =>
                                                     setData(
-                                                        "birth_place",
+                                                        "address",
                                                         e.target.value
                                                     )
                                                 }
-                                                placeholder="Scrivi la città di nascita"
+                                                placeholder="Indirizzo"
                                             />
                                         </div>
 
-                                        <div className="grid w-full items-center gap-1.5">
-                                            <Label>Cap</Label>
-                                            <Input
-                                                type="text"
-                                                value={data.cap}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "cap",
-                                                        e.target.value
-                                                    )
-                                                }
-                                                placeholder="Numero di cap"
-                                            />
-                                        </div>
+                                        {/* <div>
+                                            <Button
+                                                type="submit"
+                                                disabled={processing}
+                                            >
+                                                Salva
+                                            </Button>
+                                        </div> */}
                                     </div>
+                                </CardContent>
+                            </Card>
 
-                                    <div className="grid w-full items-center gap-1.5">
-                                        <Label>Indirizzo</Label>
-
-                                        <Input
-                                            type="text"
-                                            value={data.address}
-                                            onChange={(e) =>
-                                                setData(
-                                                    "address",
-                                                    e.target.value
-                                                )
-                                            }
-                                            placeholder="Indirizzo"
-                                        />
-                                    </div>
-
-                                    <div className="grid w-full gap-1.5">
-                                        <Label htmlFor="message">Extra</Label>
+                            <div>
+                                <Card>
+                                    <CardHeader>
+                                        <CardTitle>Note</CardTitle>
+                                    </CardHeader>
+                                    <CardContent>
                                         <Textarea
                                             onChange={(e) => {
                                                 setData(
@@ -220,22 +259,13 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                                             placeholder="Se vuoi scrivi qualche info qui."
                                             id="message"
                                         />
-                                    </div>
-
-                                    <div>
-                                        <Button
-                                            type="submit"
-                                            disabled={processing}
-                                        >
-                                            Salva
-                                        </Button>
-                                    </div>
-                                </div>
-                            </form>
-                        </CardContent>
-                    </Card>
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
         </AuthenticatedLayout>
     );
 };
