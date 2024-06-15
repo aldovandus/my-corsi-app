@@ -38,7 +38,7 @@ class CustomerController extends Controller
             ->where('customer_id', $id)->get();
 
 
-        return Inertia::render('Customer/Edit', [
+        return Inertia::render('Customer/AddCustomer', [
             'customer' => $customer,
             'subscriptions' =>  $subscriptionsWithCourses
         ]);
@@ -65,6 +65,7 @@ class CustomerController extends Controller
 
             // Aggiungi altri campi di validazione necessari
         ], [
+            'firstname.required' => 'Inserisci il nome',
             'email.required' => 'Inserisci un indirizzo email',
             'email.email' => "L'indirizzo email non ha un formato valido.",
             'email.unique' => "L'indirizzo email esiste già.",
@@ -88,7 +89,7 @@ class CustomerController extends Controller
         $customer = Customer::findOrFail($request->id);
         $customer->update($request->only('firstname', 'lastname', 'extra', 'birth_date'));
 
-        return redirect()->route('customer.edit', $request->id)->with('success', 'Cliente creato correttamente.');
+        return redirect()->route('customer.index', $request->id)->with('success', 'Cliente creato correttamente.');
     }
 
     public function show(Customer $customer)

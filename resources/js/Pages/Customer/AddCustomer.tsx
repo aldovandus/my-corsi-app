@@ -7,16 +7,18 @@ import { Label } from "@/Components/ui/label";
 import { Customer, PageProps } from "@/types";
 import { Textarea } from "@/Components/ui/textarea";
 import { ArrowLeftIcon } from "lucide-react";
-import { parse } from "date-fns";
+import { format, parse } from "date-fns";
+import FormErrors from "@/Components/FormErrors";
 
 const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, patch, processing, errors } = useForm({
         ...customer,
     });
 
     function submit(e: { preventDefault: () => void }) {
         e.preventDefault();
-        post(route("customer.store"));
+        if (customer) patch(route("customer.update"));
+        else post(route("customer.store"));
     }
 
     return (
@@ -61,9 +63,8 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                             <Card className="md:col-span-2">
                                 <CardHeader>
                                     <CardTitle>Nuovo Cliente</CardTitle>
-                                    <div className="text-red-400">
-                                        {errors?.email}
-                                    </div>
+
+                                    <FormErrors errors={errors} />
                                 </CardHeader>
 
                                 <CardContent>
@@ -178,6 +179,14 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                                                     }}
                                                     maxLength={10}
                                                     minLength={10}
+                                                    defaultValue={
+                                                        data.birth_date
+                                                            ? format(
+                                                                  data.birth_date,
+                                                                  "dd/MM/yyyy"
+                                                              )
+                                                            : ""
+                                                    }
                                                     placeholder="14/05/1991"
                                                     pattern="^(0[1-9]|1[0-9]|2[0-9]|3[01])\/(0[1-9]|1[0-2])\/(19[0-9]{2}|20[01][0-9]|202[0-3])$"
                                                 />
