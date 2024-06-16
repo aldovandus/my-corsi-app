@@ -267,6 +267,7 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                                             }}
                                             placeholder="Se vuoi scrivi qualche info qui."
                                             id="message"
+                                            value={data.extra}
                                         />
                                     </CardContent>
                                 </Card>

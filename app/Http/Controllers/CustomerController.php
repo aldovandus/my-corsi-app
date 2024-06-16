@@ -87,7 +87,8 @@ class CustomerController extends Controller
             $request->user()->email_verified_at = null;
         } */
         $customer = Customer::findOrFail($request->id);
-        $customer->update($request->only('firstname', 'lastname', 'extra', 'birth_date'));
+        //$customer->update($request->only('firstname', 'lastname', 'extra', 'birth_date'));
+        $customer->update($request->all());
 
         return redirect()->route('customer.index', $request->id)->with('success', 'Cliente creato correttamente.');
     }
