@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rule;
 
 class CustomerController extends Controller
 {
@@ -86,6 +87,33 @@ class CustomerController extends Controller
         /*   if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         } */
+
+        $validated = $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('customers')->ignore($request->id),
+            ],
+            'phone' => 'required|string|max:10',
+            'cf' => 'required|string|max:16',
+            'birth_date' => 'required|string|max:100',
+            'birth_place' => 'required|string|max:100',
+            'cap' => 'required|string|max:10',
+            'address' => 'required|string|max:50',
+            'extra' => 'string|max:250',
+
+            // Aggiungi altri campi di validazione necessari
+        ], [
+            'firstname.required' => 'Inserisci il nome',
+            'email.required' => 'Inserisci un indirizzo email',
+            'email.email' => "L'indirizzo email non ha un formato valido.",
+            'email.unique' => "L'indirizzo email esiste già.",
+        ]);
+
         $customer = Customer::findOrFail($request->id);
         //$customer->update($request->only('firstname', 'lastname', 'extra', 'birth_date'));
         $customer->update($request->all());
