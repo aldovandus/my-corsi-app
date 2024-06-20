@@ -73,7 +73,7 @@ function CustomerSubscriptions({ subscriptions, addSubscription }: Props) {
                                 <div className="text-green-800">
                                     {" "}
                                     <Label className="font-bold">Pagato:</Label>
-                                    {subscription.total} €
+                                    {subscription.total ?? 0} €
                                 </div>
                             </div>
 

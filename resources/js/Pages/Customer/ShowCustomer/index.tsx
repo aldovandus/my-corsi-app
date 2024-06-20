@@ -15,13 +15,12 @@ function index({
         <Authenticated user={auth.user}>
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <Card>
-                        <CardHeader>
+                    {/*   <CardHeader>
                             <CardTitle>Cliente</CardTitle>
-                        </CardHeader>
+                        </CardHeader> */}
 
-                        <CustomerDetails customer={customer} />
-                        {/* 
+                    <CustomerDetails customer={customer} />
+                    {/* 
                         <CardContent className="flex justify-between">
                             <div className=" text-gray-900">
                                 <div className="flex gap-3">
@@ -59,7 +58,6 @@ function index({
                                 </div>
                             </div>
                         </CardContent> */}
-                    </Card>
 
                     <CustomerSubscriptions
                         subscriptions={subscriptions}

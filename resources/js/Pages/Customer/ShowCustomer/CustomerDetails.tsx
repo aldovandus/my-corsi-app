@@ -27,7 +27,7 @@ function CustomerDetails({ customer }: Props) {
     return (
         <div>
             <Card className="overflow-hidden" x-chunk="dashboard-05-chunk-4">
-                <CardHeader className="flex flex-row items-start bg-muted/50">
+                <CardHeader className="flex flex-row items-start ">
                     <div className="grid gap-0.5">
                         <CardTitle className="group flex items-center gap-2 text-xl">
                             {customer.firstname} {customer.lastname}
