@@ -168,7 +168,8 @@ export const columns: ColumnDef<any>[] = [
 const Customers = ({
     auth,
     customers,
-}: PageProps<{ customers: Customer[] }>) => {
+    filter,
+}: PageProps<{ customers: Customer[]; filter: string }>) => {
     const { flash } = usePage<any>().props;
 
     const flashClass = clsx("p-3 rounded-md text-white", {
@@ -196,6 +197,7 @@ const Customers = ({
                                 </div>
                             )}
                             <DataTable
+                                filter={filter}
                                 data={customers}
                                 columns={columns}
                                 newBtn={

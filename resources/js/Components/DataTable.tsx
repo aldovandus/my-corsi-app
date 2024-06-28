@@ -12,7 +12,7 @@ import {
 } from "@tanstack/react-table";
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 import NavLink from "@/Components/NavLink";
-
+import { router } from "@inertiajs/react";
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import {
@@ -28,9 +28,11 @@ interface Props {
     data: any;
     columns: any;
     newBtn: React.ReactNode;
+    filter?: string;
 }
 
-export function DataTable({ data, columns, newBtn }: Props) {
+export function DataTable({ data, columns, filter, newBtn }: Props) {
+    const timer = React.useRef<NodeJS.Timeout>();
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] =
         React.useState<ColumnFiltersState>([]);
@@ -62,15 +64,19 @@ export function DataTable({ data, columns, newBtn }: Props) {
             <div className="flex items-center justify-between py-4">
                 <Input
                     placeholder="Cerca..."
-                    value={
-                        (table
-                            .getColumn("firstname")
-                            ?.getFilterValue() as string) ?? ""
-                    }
+                    defaultValue={filter}
                     onChange={(event) => {
-                        table
-                            .getColumn("firstname")
-                            ?.setFilterValue(event.target.value);
+                        if (timer.current) clearTimeout(timer.current);
+
+                        timer.current = setTimeout(() => {
+                            router.visit(window.location.href, {
+                                method: "get",
+                                data: {
+                                    q: event.target.value,
+                                },
+                                preserveState: true,
+                            });
+                        }, 500);
                     }}
                     className="max-w-sm"
                 />

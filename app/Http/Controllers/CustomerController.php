@@ -15,11 +15,19 @@ use Illuminate\Validation\Rule;
 class CustomerController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::all();
+        $myParam = $request->query('q', 'default_value');
+        $query = Customer::query();
+
+        if ($request->has('q')) {
+            $query->where('firstname', 'like', '%' . $request->query('q') . '%')->orWhere('lastname', 'like', '%' . $request->query('q') . '%');
+        }
+
+        $customers = $query->get();
         return Inertia::render('Customer/Customers', [
             'customers' => $customers,
+            'filter' => $request->query('q')
         ]);
     }
 
