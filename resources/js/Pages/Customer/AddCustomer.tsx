@@ -180,9 +180,9 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                                                     maxLength={10}
                                                     minLength={10}
                                                     defaultValue={
-                                                        data.birth_date
+                                                        customer?.birth_date
                                                             ? format(
-                                                                  data.birth_date,
+                                                                  customer.birth_date,
                                                                   "dd/MM/yyyy"
                                                               )
                                                             : ""
