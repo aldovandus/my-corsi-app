@@ -29,6 +29,7 @@ import {
     ArrowUpRight,
     CreditCard,
     DollarSign,
+    EuroIcon,
     Users,
 } from "lucide-react";
 import { Badge } from "@/Components/ui/badge";
@@ -67,7 +68,7 @@ export default function Dashboard({
                             <CardTitle className="text-sm font-medium">
                                 Totale Iscrizioni
                             </CardTitle>
-                            <DollarSign className="h-4 w-4 text-muted-foreground" />
+                            <EuroIcon className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">€2000</div>
@@ -233,11 +234,16 @@ export default function Dashboard({
                                         </AvatarFallback>
                                     </Avatar>
                                     <div className="grid gap-1">
-                                        <p className="text-sm font-medium leading-none">
+                                        {/*    <p className="text-sm font-medium leading-none">
                                             {course.code}
-                                        </p>
+                                        </p> */}
                                         <p className="text-sm text-muted-foreground">
                                             {course.title}
+                                        </p>
+                                        <p className="text-sm">
+                                            {format(course.startDate, "PPP", {
+                                                locale: it,
+                                            })}
                                         </p>
                                     </div>
                                     <div className="ml-auto font-medium">
