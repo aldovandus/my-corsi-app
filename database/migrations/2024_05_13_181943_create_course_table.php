@@ -15,11 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->string('title');
-            $table->text('description')->nullable();
             $table->string('price');
-            $table->string('startDate');
-            $table->string('endDate');
-            $table->string('extra')->nullable();
+            $table->date('startDate');
+            $table->date('endDate')->nullable();
+            $table->date('startStage')->nullable();
+            $table->date('endDate10')->nullable();
+            $table->date('examDate')->nullable();
+            $table->string('stageLocation')->nullable();
+            $table->time('startTime')->nullable();
+            $table->time('endTime')->nullable();
+            $table->string('classroom')->nullable();
+            $table->text('extra')->nullable();
             $table->timestamps();
         });
     }

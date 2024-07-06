@@ -14,12 +14,17 @@ class Course extends Model
 
     protected $fillable = [
         'code',
-        'name',
         'title',
-        'description',
         'price',
         'startDate',
         'endDate',
+        'startStage',
+        'endDate10',
+        'examDate',
+        'stageLocation',
+        'startTime',
+        'endTime',
+        'classroom',
         'extra',
     ];
 

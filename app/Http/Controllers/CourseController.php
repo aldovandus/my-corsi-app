@@ -23,7 +23,8 @@ class CourseController extends Controller
         ]);
     }
 
-    public function getAll(){
+    public function getAll()
+    {
         $courses = Course::all();
         return response()->json($courses);
     }
@@ -43,9 +44,16 @@ class CourseController extends Controller
             'code' => 'required|string|max:255',
             'title' => 'required|string|max:255',
             'price' => 'required|string|max:255',
-            'startDate' => 'required|string|max:255',
-            'endDate' => 'required|string|max:255',
-            'extra' => 'string|max:1000',
+            'startDate' => 'required|date',
+            'endDate' => 'nullable|date',
+            'startStage' => 'nullable|date',
+            'endDate10' => 'nullable|date',
+            'examDate' => 'nullable|date',
+            'stageLocation' => 'nullable|string|max:255',
+            'startTime' => 'nullable|date_format:H:i',
+            'endTime' => 'nullable|date_format:H:i',
+            'classroom' => 'nullable|string|max:255',
+            'extra' => 'nullable|string|max:1000',
             // Aggiungi altri campi di validazione necessari
         ]);
 
