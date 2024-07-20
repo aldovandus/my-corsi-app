@@ -17,10 +17,16 @@ export interface Course {
     id: number;
     code: string;
     title: string;
-    descritpion?: string;
+    price: string;
     startDate: string;
     endDate: string;
-    price: string;
+    startStage: string;
+    endDate10: string;
+    examDate: string;
+    stageLocation: string;
+    startTime: string;
+    endTime: string;
+    classroom: string;
     extra?: string;
 }
 

@@ -85,11 +85,12 @@ const columns: ColumnDef<any>[] = [
     {
         accessorKey: "endDate",
         header: "Data Fine",
-        cell: ({ row }) => (
-            <div className="capitalize">
-                {format(row.getValue("endDate"), "PPP", { locale: it })}
-            </div>
-        ),
+        cell: ({ row }) =>
+            row.getValue("endDate") && (
+                <div className="capitalize">
+                    {format(row.getValue("endDate"), "PPP", { locale: it })}
+                </div>
+            ),
     },
 
     {
@@ -169,7 +170,8 @@ const Courses = ({ auth, courses }: PageProps) => {
                 {/*   {flash.error && (
                     <div className="alert alert-danger">{flash.error}</div>
                 )} */}
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+                <div className="mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             {flash.message && (
