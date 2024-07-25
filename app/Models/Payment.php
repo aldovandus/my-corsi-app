@@ -18,6 +18,8 @@ class Payment extends Model
 
 
     protected $fillable = [
+        'number',
+        'invoice_number',
         'method',
         'amount',
         'payment_date',

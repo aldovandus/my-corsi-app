@@ -16,7 +16,9 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'number' => 'required|numeric',
             'method' => 'required|string|max:255',
+            'invoice_number' => 'required|string',
             'payment_date' => 'required|string|max:255',
             'amount' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'subscription_id' => 'required|integer'
