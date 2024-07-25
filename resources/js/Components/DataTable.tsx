@@ -69,13 +69,32 @@ export function DataTable({ data, columns, filter, newBtn }: Props) {
                         if (timer.current) clearTimeout(timer.current);
 
                         timer.current = setTimeout(() => {
-                            router.visit(window.location.href, {
-                                method: "get",
-                                data: {
-                                    q: event.target.value,
-                                },
-                                preserveState: true,
-                            });
+                            if (event.target.value.length > 0) {
+                                router.visit(window.location.href, {
+                                    method: "get",
+                                    data: {
+                                        q: event.target.value,
+                                    },
+                                    preserveState: true,
+                                });
+                            } else {
+                                let url = new URL(window.location.href);
+
+                                // Rimuovi il parametro 'q'
+                                url.searchParams.delete("q");
+
+                                // Aggiorna l'URL senza ricaricare la pagina
+                                window.history.replaceState(
+                                    {},
+                                    document.title,
+                                    url
+                                );
+
+                                router.visit(window.location.href, {
+                                    method: "get",
+                                    preserveState: true,
+                                });
+                            }
                         }, 500);
                     }}
                     className="max-w-sm"
