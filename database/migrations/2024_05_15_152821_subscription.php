@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('course_id')->references('id')->on('course')->onDelete('cascade');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->string('price');
+            $table->tinyInteger('exam_result');
             $table->string('subscription_date');
             $table->timestamps();
         });
