@@ -18,7 +18,7 @@ export interface Course {
     code: string;
     title: string;
     price: string;
-    startDate: string;
+    startDate: Date;
     endDate: string;
     startStage: string;
     endDate10: string;
@@ -52,7 +52,7 @@ export interface Subscription {
     code: string;
     title: string;
     price: string;
-    subscription_date: string;
+    subscription_date: Date;
     phone: string;
     birth_date: string;
     extra?: string;

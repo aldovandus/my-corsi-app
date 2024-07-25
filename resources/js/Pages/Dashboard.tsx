@@ -1,11 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
-import {
-    Course,
-    CustomerWithSubscription,
-    PageProps,
-    Subscription,
-} from "@/types";
+import { Course, CustomerWithSubscription, PageProps } from "@/types";
 import {
     Card,
     CardHeader,
@@ -28,13 +23,11 @@ import {
     Activity,
     ArrowUpRight,
     CreditCard,
-    DollarSign,
     EuroIcon,
     Users,
 } from "lucide-react";
 import { Badge } from "@/Components/ui/badge";
-import { format } from "date-fns";
-import { it } from "date-fns/locale";
+import formatDate from "@/lib/hooks/formatDate";
 
 export default function Dashboard({
     auth,
@@ -116,7 +109,7 @@ export default function Dashboard({
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">
-                                +{coursesCount}
+                                {coursesCount}
                             </div>
                             <p className="text-xs text-muted-foreground">
                                 +201 since last hour
@@ -136,85 +129,104 @@ export default function Dashboard({
                                     Ultime iscrizioni effettuate.
                                 </CardDescription>
                             </div>
-                            <Button asChild size="sm" className="ml-auto gap-1">
-                                <Link href="#">
-                                    Vedi tutte
-                                    <ArrowUpRight className="h-4 w-4" />
-                                </Link>
-                            </Button>
+                            {subscriptionsCount > 0 && (
+                                <Button
+                                    asChild
+                                    size="sm"
+                                    className="ml-auto gap-1"
+                                >
+                                    <Link href="#">
+                                        Vedi tutte
+                                        <ArrowUpRight className="h-4 w-4" />
+                                    </Link>
+                                </Button>
+                            )}
                         </CardHeader>
                         <CardContent>
-                            <Table>
-                                <TableHeader>
-                                    <TableRow>
-                                        <TableHead>Cliente</TableHead>
-                                        <TableHead className="hidden xl:table-column">
-                                            Type
-                                        </TableHead>
-                                        <TableHead className="">
-                                            Corso
-                                        </TableHead>
-                                        <TableHead className=" ">
-                                            Data Iscrizione
-                                        </TableHead>
-                                        <TableHead className="text-right">
-                                            Prezzo
-                                        </TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {latestSubscriptions.map((subscription) => (
-                                        <TableRow key={subscription.id}>
-                                            <TableCell>
-                                                <Link
-                                                    className=""
-                                                    href={route(
-                                                        "customer.show",
-                                                        subscription.id
-                                                    )}
-                                                >
-                                                    <div className="font-medium">
-                                                        {`${subscription.firstname} ${subscription.lastname}`}
-                                                    </div>
-                                                    <div className="hidden text-sm text-muted-foreground md:inline">
-                                                        {subscription.email}
-                                                    </div>
-                                                </Link>
-                                            </TableCell>
-                                            <TableCell className="xl:table-column">
+                            {subscriptionsCount > 0 ? (
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead>Cliente</TableHead>
+                                            <TableHead className="hidden xl:table-column">
+                                                Type
+                                            </TableHead>
+                                            <TableHead className="">
                                                 Corso
-                                            </TableCell>
-                                            <TableCell className=" ">
-                                                <Link
-                                                    href={route(
-                                                        "course.show",
-                                                        subscription.course_id
-                                                    )}
-                                                >
-                                                    <Badge
-                                                        className="text-xs"
-                                                        variant="outline"
-                                                    >
-                                                        {subscription.code}-
-                                                        {subscription.title}
-                                                    </Badge>
-                                                </Link>
-                                            </TableCell>
-
-                                            <TableCell className=" ">
-                                                {format(
-                                                    subscription.subscription_date,
-                                                    "PPP",
-                                                    { locale: it }
-                                                )}
-                                            </TableCell>
-                                            <TableCell className="text-right">
-                                                € {subscription.price}
-                                            </TableCell>
+                                            </TableHead>
+                                            <TableHead className=" ">
+                                                Data Iscrizione
+                                            </TableHead>
+                                            <TableHead className="text-right">
+                                                Prezzo
+                                            </TableHead>
                                         </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {latestSubscriptions.map(
+                                            (subscription) => (
+                                                <TableRow key={subscription.id}>
+                                                    <TableCell>
+                                                        <Link
+                                                            className=""
+                                                            href={route(
+                                                                "customer.show",
+                                                                subscription.id
+                                                            )}
+                                                        >
+                                                            <div className="font-medium">
+                                                                {`${subscription.firstname} ${subscription.lastname}`}
+                                                            </div>
+                                                            <div className="hidden text-sm text-muted-foreground md:inline">
+                                                                {
+                                                                    subscription.email
+                                                                }
+                                                            </div>
+                                                        </Link>
+                                                    </TableCell>
+                                                    <TableCell className="xl:table-column">
+                                                        Corso
+                                                    </TableCell>
+                                                    <TableCell className=" ">
+                                                        <Link
+                                                            href={route(
+                                                                "course.show",
+                                                                subscription.course_id
+                                                            )}
+                                                        >
+                                                            <Badge
+                                                                className="text-xs"
+                                                                variant="outline"
+                                                            >
+                                                                {
+                                                                    subscription.code
+                                                                }
+                                                                -
+                                                                {
+                                                                    subscription.title
+                                                                }
+                                                            </Badge>
+                                                        </Link>
+                                                    </TableCell>
+
+                                                    <TableCell className=" ">
+                                                        {subscription.subscription_date
+                                                            ? formatDate(
+                                                                  subscription.subscription_date
+                                                              )
+                                                            : ""}
+                                                    </TableCell>
+                                                    <TableCell className="text-right">
+                                                        € {subscription.price}
+                                                    </TableCell>
+                                                </TableRow>
+                                            )
+                                        )}
+                                    </TableBody>
+                                </Table>
+                            ) : (
+                                <div>Non ci sono iscrizioni al momento.</div>
+                            )}
                         </CardContent>
                     </Card>
                     <Card x-chunk="dashboard-01-chunk-5">
@@ -241,9 +253,7 @@ export default function Dashboard({
                                             {course.title}
                                         </p>
                                         <p className="text-sm">
-                                            {format(course.startDate, "PPP", {
-                                                locale: it,
-                                            })}
+                                            {formatDate(course.startDate)}
                                         </p>
                                     </div>
                                     <div className="ml-auto font-medium">

@@ -2,7 +2,7 @@ import { DataTable } from "@/Components/DataTable";
 import NavLink from "@/Components/NavLink";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Button } from "@/Components/ui/button";
-import { PageProps } from "@/types";
+import { Course, PageProps } from "@/types";
 import { useForm, usePage } from "@inertiajs/react";
 import { Checkbox } from "@/Components/ui/checkbox";
 import {
@@ -15,12 +15,11 @@ import {
 } from "@/Components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
-import { format } from "date-fns";
-import { it } from "date-fns/locale";
 import clsx from "clsx";
+import formatDate from "@/lib/hooks/formatDate";
 
 const columns: ColumnDef<any>[] = [
-    {
+    /* {
         id: "select",
         header: ({ table }) => (
             <Checkbox
@@ -43,7 +42,7 @@ const columns: ColumnDef<any>[] = [
         ),
         enableSorting: false,
         enableHiding: false,
-    },
+    }, */
     {
         accessorKey: "id",
         header: "Id",
@@ -77,7 +76,12 @@ const columns: ColumnDef<any>[] = [
         header: "Data Inizio",
         cell: ({ row }) => (
             <div className="capitalize">
-                {format(row.getValue("startDate"), "PPP", { locale: it })}
+                {row.getValue("startDate") ? (
+                    //format(row.getValue("startDate"), "PPP", { locale: it })
+                    formatDate(row.getValue("startDate"))
+                ) : (
+                    <div className="text-red-400">data non valida</div>
+                )}
             </div>
         ),
     },
@@ -88,7 +92,7 @@ const columns: ColumnDef<any>[] = [
         cell: ({ row }) =>
             row.getValue("endDate") && (
                 <div className="capitalize">
-                    {format(row.getValue("endDate"), "PPP", { locale: it })}
+                    {formatDate(row.getValue("endDate"))}
                 </div>
             ),
     },
@@ -147,7 +151,11 @@ const columns: ColumnDef<any>[] = [
     },
 ];
 
-const Courses = ({ auth, courses }: PageProps) => {
+const Courses = ({
+    auth,
+    courses,
+    filter,
+}: PageProps<{ filter: string; courses: Course[] }>) => {
     const { flash } = usePage<any>().props;
 
     console.log({ usePageProps: usePage().props });
@@ -165,8 +173,9 @@ const Courses = ({ auth, courses }: PageProps) => {
                     Corsi
                 </h2>
             }
+            breadcrumbRoutes={[{ label: "Corsi", url: "course.index" }]}
         >
-            <div className="py-12">
+            <div className="">
                 {/*   {flash.error && (
                     <div className="alert alert-danger">{flash.error}</div>
                 )} */}
@@ -181,6 +190,7 @@ const Courses = ({ auth, courses }: PageProps) => {
                             )}
                             <DataTable
                                 data={courses}
+                                filter={filter}
                                 columns={columns}
                                 newBtn={
                                     <NavLink
