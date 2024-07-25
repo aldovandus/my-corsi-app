@@ -14,12 +14,22 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $courses = Course::all();
+
+        $query = Course::query();
+
+        if ($request->has('q')) {
+            $query->where('code', 'like', '%' . $request->query('q') . '%')->orWhere('title', 'like', '%' . $request->query('q') . '%');
+        }
+
+        $query->orderBy('id', 'desc');
+
+
+        $courses = $query->get();
         return Inertia::render('Course/Courses', [
             'courses' => $courses,
+            'filter' => $request->query('q')
         ]);
     }
 

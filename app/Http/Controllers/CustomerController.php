@@ -17,7 +17,7 @@ class CustomerController extends Controller
     //
     public function index(Request $request)
     {
-        $myParam = $request->query('q', 'default_value');
+        //$myParam = $request->query('q', 'default_value');
         $query = Customer::query();
 
         if ($request->has('q')) {
