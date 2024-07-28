@@ -15,8 +15,8 @@ import {
     TableFooter,
 } from "@/Components/ui/table";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { PageProps, Payment, Subscription } from "@/types";
-import { format } from "date-fns";
+import { PageProps, Payment, SubscriptionWithCustomerAndCourse } from "@/types";
+import { format, sub } from "date-fns";
 import { it } from "date-fns/locale";
 import NewRataModal from "./NewRataModal";
 import {
@@ -30,6 +30,9 @@ import {
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/Components/ui/button";
 import { router } from "@inertiajs/react";
+import { Switch } from "@/Components/ui/switch";
+import { Label } from "@radix-ui/react-dropdown-menu";
+import formatDate from "@/lib/hooks/formatDate";
 
 function index({
     auth,
@@ -37,20 +40,28 @@ function index({
     payments,
     totalPayments,
 }: PageProps<{
-    subscription: Subscription & { subscriptionPrice: string };
+    subscription: SubscriptionWithCustomerAndCourse & {
+        subscriptionPrice: string;
+    };
     payments: Payment[];
     totalPayments: number;
 }>) {
     return (
-        <Authenticated user={auth.user}>
+        <Authenticated
+            breadcrumbRoutes={[{ label: "Clienti", url: "customer.index" }]}
+            user={auth.user}
+        >
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="grid grid-cols-2 gap-2">
                         <Card>
                             <CardHeader>
                                 <CardTitle>Cliente</CardTitle>
-                                <div>Aldo Vandus</div>
-                                <div>{subscription?.cf}</div>
+                                <div>
+                                    {subscription.firstname}{" "}
+                                    {subscription.lastname}
+                                </div>
+                                <div>{subscription.cf}</div>
                             </CardHeader>
                         </Card>
 
@@ -67,6 +78,24 @@ function index({
                                             Prezzo:{" "}
                                         </span>
                                         {subscription?.subscriptionPrice}€
+                                    </div>
+                                    <div>
+                                        <span className="font-bold">
+                                            Data iscrizione:{" "}
+                                        </span>
+                                        {formatDate(
+                                            subscription.subscription_date
+                                        )}
+                                    </div>
+
+                                    <div className="flex items-center space-x-2">
+                                        <Label>Esito Esame</Label>
+                                        <Switch
+                                            /* onCheckedChange={(checked) => {
+                                                alert(checked);
+                                            }} */
+                                            checked={subscription.exam_result}
+                                        />
                                     </div>
                                 </CardDescription>
                             </CardHeader>

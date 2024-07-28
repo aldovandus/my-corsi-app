@@ -42,7 +42,7 @@ function CustomerDetails({ customer }: Props) {
                         </CardTitle>
                         <CardDescription>
                             <div className="font-bold">{customer.cf}</div>
-                            Nato il :
+                            Data di nascita:
                             {customer.birth_date &&
                                 format(customer.birth_date, "PPP", {
                                     locale: it,

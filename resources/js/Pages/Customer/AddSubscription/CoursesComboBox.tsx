@@ -70,10 +70,11 @@ export default function CoursesComboBox({
                         {courses.map((course) => (
                             <CommandItem
                                 key={course.code}
-                                value={course.title}
+                                value={`${course.code} ${course.title}`}
                                 onSelect={(selectedCourse) => {
                                     setCurrentCourse(
-                                        selectedCourse === course.title
+                                        selectedCourse ===
+                                            `${course.code} ${course.title}`
                                             ? course
                                             : currentCourse
                                     );

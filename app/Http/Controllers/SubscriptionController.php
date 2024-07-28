@@ -56,7 +56,7 @@ class SubscriptionController extends Controller
 
 
         $subscriptionsWithCustomerAndCourse = Subscription::join('course', 'subscription.course_id', '=', 'course.id')->join('customers', 'subscription.customer_id', '=', 'customers.id')
-            ->select('customers.cf', 'subscription.id', 'subscription.price as subscriptionPrice', 'course.code', 'course.title', 'course.price as coursePrice') // seleziona i campi desiderati
+            ->select('customers.cf', 'customers.firstname', 'customers.lastname', 'subscription.id', 'subscription.price as subscriptionPrice', 'subscription.exam_result', 'subscription.subscription_date', 'course.code', 'course.title', 'course.price as coursePrice') // seleziona i campi desiderati
             ->where('subscription.id', $id)->first();
 
         $payments = Payment::where('subscription_id', $id)->get();

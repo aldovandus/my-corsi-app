@@ -55,6 +55,7 @@ export interface Subscription {
     subscription_date: Date;
     phone: string;
     birth_date: string;
+    exam_result: boolean;
     extra?: string;
     total?: string;
 }
@@ -67,3 +68,4 @@ export interface Payment {
 }
 
 type CustomerWithSubscription = Customer & Subscription;
+type SubscriptionWithCustomerAndCourse = Subscription & Customer & Course;
