@@ -23,6 +23,7 @@ class CustomerController extends Controller
         if ($request->has('q')) {
             $query->where('firstname', 'like', '%' . $request->query('q') . '%')->orWhere('lastname', 'like', '%' . $request->query('q') . '%');
         }
+        $query->orderBy('id', 'desc');
 
         $customers = $query->get();
         return Inertia::render('Customer/Customers', [
