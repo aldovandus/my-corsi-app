@@ -26,7 +26,7 @@ class DashboardController extends Controller
             ->select('subscription.course_id', 'subscription.price', 'customers.id', 'customers.firstname', 'customers.lastname', 'customers.email', 'subscription.subscription_date', 'course.code', 'course.title') // seleziona i campi desiderati
             ->orderBy('subscription.created_at', 'desc')->take(5)->get();
 
-        $courses = Course::all()->take(5);
+        $courses = Course::take(5)->orderBy('id', 'desc')->get();
 
         return Inertia::render('Dashboard', ['customersCount' => $customerCount, 'coursesCount' => $coursesCount, 'subscriptionsCount' => $subscriptionCount, 'latestSubscriptions' => $latestSubscriptions, 'courses' => $courses]);
     }
