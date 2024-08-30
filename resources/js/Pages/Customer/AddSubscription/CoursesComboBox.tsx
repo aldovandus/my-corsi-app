@@ -64,7 +64,10 @@ export default function CoursesComboBox({
             </PopoverTrigger>
             <PopoverContent className="w-[250px] p-0">
                 <Command>
-                    <CommandInput placeholder="Cerca Corso..." />
+                    <CommandInput
+                        className="outline-none"
+                        placeholder="Cerca Corso..."
+                    />
                     <CommandEmpty>Nessun corso trovato.</CommandEmpty>
                     <CommandGroup className="capitalize">
                         {courses.map((course) => (

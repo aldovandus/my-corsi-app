@@ -6,9 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SubscriptionController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /* Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -42,10 +40,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/courses/add', [CourseController::class, 'add'])->name('course.add');
     Route::post('/courses/store', [CourseController::class, 'store'])->name('course.store');
     Route::get('/courses/show/{course}', [CourseController::class, 'show'])->name('course.show');
+    Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('course.destroy');
     Route::post('/subscription/store', [SubscriptionController::class, 'store'])->name('subscription.store');
     Route::get('/subscription/{id}', [SubscriptionController::class, 'show'])->name('subscription.show');
     Route::delete('/subscription/{id}', [SubscriptionController::class, 'destroy'])->name('subscription.destroy');
-    Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('course.destroy');
     Route::post('/payment/store', [PaymentController::class, 'store'])->name('payment.store');
     Route::delete('/payment/{id}', [PaymentController::class, 'destroy'])->name('payment.destroy');
 });
