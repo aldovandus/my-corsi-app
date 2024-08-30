@@ -73,6 +73,7 @@ import {
 import { Link, router } from "@inertiajs/react";
 import { PropsWithChildren, ReactNode } from "react";
 import { User } from "@/types";
+import { Avatar, AvatarFallback } from "@/Components/ui/avatar";
 
 type BreadcrumbRoute = {
     url: string;
@@ -98,14 +99,14 @@ export default function Authenticated({
                         className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
                     >
                         <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
-                        <span className="sr-only">Acme Inc</span>
+                        <span className="sr-only">Entemaxwell</span>
                     </Link>
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link
                                     href={route("dashboard")}
-                                    className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                                    className=" flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                                 >
                                     <Home className="h-5 w-5" />
                                     <span className="sr-only">Dashboard</span>
@@ -313,6 +314,16 @@ export default function Authenticated({
                                         alt="Avatar"
                                         className="overflow-hidden rounded-full"
                                     /> */}
+                                        <Avatar>
+                                            {/* <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" /> */}
+                                            {user.name && (
+                                                <AvatarFallback>
+                                                    {user.name
+                                                        .charAt(0)
+                                                        .toUpperCase()}
+                                                </AvatarFallback>
+                                            )}
+                                        </Avatar>
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
@@ -320,12 +331,14 @@ export default function Authenticated({
                                         Il mio account
                                     </DropdownMenuLabel>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuItem>
-                                        Impostazioni
+                                    <DropdownMenuItem
+                                        onClick={() => router.get("profile")}
+                                    >
+                                        Profilo
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem>
+                                    {/*   <DropdownMenuItem>
                                         Supporto
-                                    </DropdownMenuItem>
+                                    </DropdownMenuItem> */}
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem
                                         onClick={() => router.post("logout")}
