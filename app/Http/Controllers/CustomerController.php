@@ -26,13 +26,24 @@ class CustomerController extends Controller
             $terms = explode(' ', $searchTerm);
 
             if (count($terms) >= 2) {
-                // Considera il primo termine come nome e il resto come cognome
+                // Considera il primo termine come possibile nome e il resto come possibile cognome
                 $firstname = $terms[0];
                 $lastname = implode(' ', array_slice($terms, 1));
 
-                $query->where(function ($q) use ($firstname, $lastname) {
-                    $q->where('firstname', 'like', '%' . $firstname . '%')
-                        ->where('lastname', 'like', '%' . $lastname . '%');
+                // Considera anche l'inverso: primo come cognome, e il resto come nome
+                $reverseFirstname = $terms[count($terms) - 1];
+                $reverseLastname = implode(' ', array_slice($terms, 0, -1));
+
+                $query->where(function ($q) use ($firstname, $lastname, $reverseFirstname, $reverseLastname) {
+                    // Cerca sia nome-cognome che cognome-nome
+                    $q->where(function ($subQuery) use ($firstname, $lastname) {
+                        $subQuery->where('firstname', 'like', '%' . $firstname . '%')
+                            ->where('lastname', 'like', '%' . $lastname . '%');
+                    })
+                        ->orWhere(function ($subQuery) use ($reverseFirstname, $reverseLastname) {
+                            $subQuery->where('firstname', 'like', '%' . $reverseFirstname . '%')
+                                ->where('lastname', 'like', '%' . $reverseLastname . '%');
+                        });
                 });
             } else {
                 // Se è presente solo un termine, cerca per nome o cognome
@@ -51,6 +62,7 @@ class CustomerController extends Controller
             'filter' => $request->query('q')
         ]);
     }
+
 
 
 
