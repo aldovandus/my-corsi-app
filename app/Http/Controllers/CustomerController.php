@@ -17,20 +17,41 @@ class CustomerController extends Controller
     //
     public function index(Request $request)
     {
-        //$myParam = $request->query('q', 'default_value');
         $query = Customer::query();
 
         if ($request->has('q')) {
-            $query->where('firstname', 'like', '%' . $request->query('q') . '%')->orWhere('lastname', 'like', '%' . $request->query('q') . '%');
-        }
-        $query->orderBy('id', 'desc');
+            $searchTerm = $request->query('q');
 
+            // Dividi il termine di ricerca in parole
+            $terms = explode(' ', $searchTerm);
+
+            if (count($terms) >= 2) {
+                // Considera il primo termine come nome e il resto come cognome
+                $firstname = $terms[0];
+                $lastname = implode(' ', array_slice($terms, 1));
+
+                $query->where(function ($q) use ($firstname, $lastname) {
+                    $q->where('firstname', 'like', '%' . $firstname . '%')
+                        ->where('lastname', 'like', '%' . $lastname . '%');
+                });
+            } else {
+                // Se è presente solo un termine, cerca per nome o cognome
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('firstname', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('lastname', 'like', '%' . $searchTerm . '%');
+                });
+            }
+        }
+
+        $query->orderBy('id', 'desc');
         $customers = $query->get();
+
         return Inertia::render('Customer/Customers', [
             'customers' => $customers,
             'filter' => $request->query('q')
         ]);
     }
+
 
 
     public function edit(string $id)
