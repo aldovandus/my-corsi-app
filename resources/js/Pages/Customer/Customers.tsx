@@ -14,7 +14,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import NavLink from "@/Components/NavLink";
 
-import { usePage, useForm } from "@inertiajs/react";
+import { usePage, useForm, router } from "@inertiajs/react";
 import clsx from "clsx";
 import { Customer, PageProps } from "@/types";
 
@@ -115,33 +115,34 @@ export const columns: ColumnDef<any>[] = [
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Azioni</DropdownMenuLabel>
 
-                        <DropdownMenuItem>
-                            <NavLink
-                                href={route("customer.show", {
-                                    id: row.getValue("id"),
-                                })}
-                                active={route().current("customer.show", {
-                                    id: row.getValue("id"),
-                                })}
-                            >
-                                <span>Vedi</span>
-                            </NavLink>
+                        <DropdownMenuItem
+                            className="cursor-pointer"
+                            onClick={() => {
+                                router.get(
+                                    route("customer.show", {
+                                        id: row.getValue("id"),
+                                    })
+                                );
+                            }}
+                        >
+                            Vedi
                         </DropdownMenuItem>
 
-                        <DropdownMenuItem>
-                            <NavLink
-                                href={route("customer.edit", {
-                                    id: row.getValue("id"),
-                                })}
-                                active={route().current("customer.edit", {
-                                    id: row.getValue("id"),
-                                })}
-                            >
-                                <span>Modifica</span>
-                            </NavLink>
+                        <DropdownMenuItem
+                            className="cursor-pointer"
+                            onClick={() => {
+                                router.get(
+                                    route("customer.edit", {
+                                        id: row.getValue("id"),
+                                    })
+                                );
+                            }}
+                        >
+                            <span>Modifica</span>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
+                            className="cursor-pointer"
                             onClick={() => {
                                 if (
                                     confirm(
