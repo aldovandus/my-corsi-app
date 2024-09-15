@@ -29,15 +29,20 @@ interface Props {
     columns: any;
     newBtn: React.ReactNode;
     filter?: string;
+    columnVisibility?: VisibilityState;
 }
 
-export function DataTable({ data, columns, filter, newBtn }: Props) {
+export function DataTable({
+    data,
+    columns,
+    filter,
+    newBtn,
+    columnVisibility,
+}: Props) {
     const timer = React.useRef<NodeJS.Timeout>();
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] =
         React.useState<ColumnFiltersState>([]);
-    const [columnVisibility, setColumnVisibility] =
-        React.useState<VisibilityState>({});
     const [rowSelection, setRowSelection] = React.useState({});
 
     const table = useReactTable({
@@ -49,7 +54,6 @@ export function DataTable({ data, columns, filter, newBtn }: Props) {
         getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
-        onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
         state: {
             sorting,

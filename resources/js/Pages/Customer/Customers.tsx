@@ -200,6 +200,7 @@ const Customers = ({
                                 filter={filter}
                                 data={customers}
                                 columns={columns}
+                                columnVisibility={{ id: false }}
                                 newBtn={
                                     <NavLink
                                         href={route("customer.add")}
