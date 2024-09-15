@@ -168,7 +168,7 @@ class CustomerController extends Controller
 
         $subscriptionsWithCourses = Subscription::join('course', 'subscription.course_id', '=', 'course.id')
             ->leftjoin('payments', 'payments.subscription_id', 'subscription.id')
-            ->select('subscription.id', 'subscription.price', 'course.code', 'course.title', DB::raw('sum(payments.amount) as total')) // seleziona i campi desiderati
+            ->select('subscription.id', 'subscription.price', 'subscription.subscription_date', 'course.code', 'course.title', DB::raw('sum(payments.amount) as total')) // seleziona i campi desiderati
             ->where('customer_id', $customer->id)->groupBy('subscription.id')->get();
 
         return Inertia::render('Customer/ShowCustomer/index', [

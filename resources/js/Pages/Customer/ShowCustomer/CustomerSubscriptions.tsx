@@ -8,19 +8,10 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
-import { Label } from "@/Components/ui/label";
 import { Subscription } from "@/types";
 import { useForm } from "@inertiajs/react";
-import { MoreHorizontal, Trash } from "lucide-react";
 import React from "react";
+import CustomerSubscription from "./CustomerSubscription";
 
 type Props = {
     subscriptions: Subscription[];
@@ -43,9 +34,9 @@ function CustomerSubscriptions({ subscriptions, addSubscription }: Props) {
                             : "Gestisci le iscrizioni del cliente"}
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="grid gap-8">
+                <CardContent className="grid grid-flow-col grid-cols-3 gap-4">
                     {subscriptions.map((subscription) => (
-                        <div className="flex items-center gap-4">
+                        /*  <div className="flex items-center gap-4">
                             <Avatar className="hidden h-9 w-9 sm:flex">
                                 <AvatarImage
                                     src="/avatars/01.png"
@@ -131,7 +122,13 @@ function CustomerSubscriptions({ subscriptions, addSubscription }: Props) {
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
-                        </div>
+                        </div> */
+
+                        <CustomerSubscription
+                            key={subscription.id}
+                            subscription={subscription}
+                            destroy={destroy}
+                        />
                     ))}
                 </CardContent>
             </Card>
