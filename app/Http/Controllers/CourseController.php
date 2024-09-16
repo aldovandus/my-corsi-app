@@ -7,6 +7,7 @@ use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Carbon\Carbon;
 
 
 class CourseController extends Controller
@@ -58,7 +59,7 @@ class CourseController extends Controller
             'endDate' => 'nullable|date',
             'startStage' => 'nullable|date',
             'endDate10' => 'nullable|date',
-            'examDate' => 'nullable|date',
+            //'examDate' => 'nullable|date',
             'stageLocation' => 'nullable|string|max:255',
             'startTime' => 'nullable|date_format:H:i',
             'endTime' => 'nullable|date_format:H:i',
@@ -66,6 +67,16 @@ class CourseController extends Controller
             'extra' => 'nullable|string|max:1000',
             // Aggiungi altri campi di validazione necessari
         ]);
+
+        $start_date = Carbon::parse($request->input('startDate'))->format('Y-m-d H:i:s');
+        $end_date = Carbon::parse($request->input('endDate'))->format('Y-m-d H:i:s');
+        $start_stage = Carbon::parse($request->input('endDate'))->format('Y-m-d H:i:s');
+        $end_date10 = Carbon::parse($request->input('endDate10'))->format('Y-m-d H:i:s');
+
+        $validated["startDate"] = $start_date;
+        $validated["endDate"] = $end_date;
+        $validated["endDate10"] = $end_date10;
+        $validated["startStage"] = $start_stage;
 
         Course::create($validated);
 
