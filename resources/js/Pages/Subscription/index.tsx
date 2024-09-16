@@ -119,6 +119,7 @@ function index({
                                 <TableHeader>
                                     <TableRow>
                                         <TableHead>Numero</TableHead>
+                                        <TableHead>Numero ricevuta</TableHead>
                                         <TableHead className="hidden sm:table-cell">
                                             Metodo di pagamento
                                         </TableHead>
@@ -133,6 +134,9 @@ function index({
                                     {payments?.map((payment, index: number) => (
                                         <TableRow>
                                             <TableCell>{index + 1}</TableCell>
+                                            <TableCell>
+                                                {payment.invoice_number}
+                                            </TableCell>
                                             <TableCell>
                                                 {payment.method}
                                             </TableCell>
@@ -204,9 +208,11 @@ function index({
                                         >
                                             Totale
                                         </TableCell>
+                                        <TableCell />
                                         <TableCell className="text-lg">
                                             {totalPayments} €
                                         </TableCell>
+                                        <TableCell />
                                     </TableRow>
                                     <TableRow className="bg-white">
                                         <TableCell
@@ -215,12 +221,14 @@ function index({
                                         >
                                             Da Saldare
                                         </TableCell>
+                                        <TableCell />
                                         <TableCell className="text-md">
                                             {parseFloat(
                                                 subscription.subscriptionPrice
                                             ) - totalPayments}
                                             €
                                         </TableCell>
+                                        <TableCell />
                                     </TableRow>
                                 </TableFooter>
                             </Table>

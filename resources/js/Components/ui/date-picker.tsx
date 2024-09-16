@@ -55,10 +55,10 @@ const DatePicker = ({
             <PopoverContent className="w-auto p-0">
                 <Calendar
                     mode="single"
-                    selected={date}
+                    selected={date as Date}
                     onSelect={(e) => {
                         setDate(e);
-                        if (onChange) onChange(e);
+                        if (onChange) onChange(e as Date);
                     }}
                     initialFocus
                 />

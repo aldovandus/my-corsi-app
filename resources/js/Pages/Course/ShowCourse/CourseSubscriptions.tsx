@@ -7,23 +7,32 @@ import {
     CardDescription,
 } from "@/Components/ui/card";
 import { getInitials } from "@/lib/utils";
+import { Subscription } from "@/types";
+import CourseSubscription from "./CourseSubscription";
 
-function CourseSubscriptions({ subscriptions }) {
+function CourseSubscriptions({
+    subscriptions,
+}: {
+    subscriptions: Subscription[];
+}) {
     return (
         <div className="py-4">
             <Card x-chunk="dashboard-01-chunk-5">
                 <CardHeader>
                     <CardTitle>Iscrizioni</CardTitle>
-                    {subscriptions.length === 0 && (
+                    {subscriptions.length === 0 ? (
                         <CardDescription>
                             Nessun iscritto al corso.
                         </CardDescription>
+                    ) : (
+                        <CardDescription>Lista degli iscritti.</CardDescription>
                     )}
                 </CardHeader>
 
-                <CardContent className="grid gap-8">
+                <CardContent className="grid grid-cols-3 gap-4">
                     {subscriptions.map((subscription) => (
-                        <div className="flex items-center gap-4">
+                        <CourseSubscription subscription={subscription} />
+                        /*  <div className="flex items-center gap-4">
                             <Avatar className="hidden h-9 w-9 sm:flex">
                                 <AvatarImage
                                     src="/avatars/01.png"
@@ -48,7 +57,7 @@ function CourseSubscriptions({ subscriptions }) {
                             <div className="ml-auto font-medium">
                                 {subscription.price} €
                             </div>
-                        </div>
+                        </div> */
                     ))}
 
                     {/*   <div className="flex items-center gap-4">
