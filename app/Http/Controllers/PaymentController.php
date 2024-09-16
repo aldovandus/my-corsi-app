@@ -8,6 +8,7 @@ use App\Models\Subscription;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Carbon\Carbon;
 
 class PaymentController extends Controller
 {
@@ -19,7 +20,7 @@ class PaymentController extends Controller
             'number' => 'required|numeric',
             'method' => 'required|string|max:255',
             'invoice_number' => 'required|string',
-            'payment_date' => 'required|string|max:255',
+            'payment_date' => 'required|date',
             'amount' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'subscription_id' => 'required|integer'
             // Aggiungi altri campi di validazione necessari
@@ -42,6 +43,9 @@ class PaymentController extends Controller
                 'overamount' => 'Il totale deve essere inferiore al prezzo di iscrizione!'
             ]);
         }
+
+        $payment_date = Carbon::parse($request->input('payment_date'))->format('Y-m-d H:i:s');
+        $validated['payment_date'] = $payment_date;
 
 
         Payment::create($validated);
