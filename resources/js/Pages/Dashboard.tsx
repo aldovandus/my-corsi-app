@@ -129,21 +129,20 @@ export default function Dashboard({
                                     Ultime iscrizioni effettuate.
                                 </CardDescription>
                             </div>
-                            {subscriptionsCount > 0 && (
-                                <Button
-                                    asChild
-                                    size="sm"
-                                    className="ml-auto gap-1"
-                                >
-                                    <Link href="#">
-                                        Vedi tutte
-                                        <ArrowUpRight className="h-4 w-4" />
-                                    </Link>
-                                </Button>
-                            )}
+                            <Button
+                                disabled={latestSubscriptions.length === 0}
+                                asChild
+                                size="sm"
+                                className="ml-auto gap-1"
+                            >
+                                <Link href="#">
+                                    Vedi tutte
+                                    <ArrowUpRight className="h-4 w-4" />
+                                </Link>
+                            </Button>
                         </CardHeader>
                         <CardContent>
-                            {subscriptionsCount > 0 ? (
+                            {latestSubscriptions.length > 0 ? (
                                 <Table>
                                     <TableHeader>
                                         <TableRow>
@@ -232,36 +231,43 @@ export default function Dashboard({
                     <Card x-chunk="dashboard-01-chunk-5">
                         <CardHeader>
                             <CardTitle>Corsi Recenti</CardTitle>
+                            {courses.length === 0 && (
+                                <CardDescription>
+                                    Nessun corso al momento.
+                                </CardDescription>
+                            )}
                         </CardHeader>
-                        <CardContent className="grid gap-8">
-                            {courses.map((course) => (
-                                <div className="flex items-center gap-4">
-                                    <Avatar className="hidden h-9 w-9 sm:flex">
-                                        <AvatarImage
-                                            src="/avatars/01.png"
-                                            alt="Avatar"
-                                        />
-                                        <AvatarFallback>
-                                            {course.code}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                    <div className="grid gap-1">
-                                        {/*    <p className="text-sm font-medium leading-none">
+                        {courses.length > 0 && (
+                            <CardContent className="grid gap-8">
+                                {courses.map((course) => (
+                                    <div className="flex items-center gap-4">
+                                        <Avatar className="hidden h-9 w-9 sm:flex">
+                                            <AvatarImage
+                                                src="/avatars/01.png"
+                                                alt="Avatar"
+                                            />
+                                            <AvatarFallback>
+                                                {course.code}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                        <div className="grid gap-1">
+                                            {/*    <p className="text-sm font-medium leading-none">
                                             {course.code}
                                         </p> */}
-                                        <p className="text-sm text-muted-foreground">
-                                            {course.title}
-                                        </p>
-                                        <p className="text-sm">
-                                            {formatDate(course.startDate)}
-                                        </p>
+                                            <p className="text-sm text-muted-foreground">
+                                                {course.title}
+                                            </p>
+                                            <p className="text-sm">
+                                                {formatDate(course.startDate)}
+                                            </p>
+                                        </div>
+                                        <div className="ml-auto font-medium">
+                                            +{course.price} €
+                                        </div>
                                     </div>
-                                    <div className="ml-auto font-medium">
-                                        +{course.price} €
-                                    </div>
-                                </div>
-                            ))}
-                        </CardContent>
+                                ))}
+                            </CardContent>
+                        )}
                     </Card>
                 </div>
             </main>
