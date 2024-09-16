@@ -62,6 +62,7 @@ export interface Subscription {
 
 export interface Payment {
     id: number;
+    invoice_number: string;
     method: string;
     payment_date: Date;
     amount: number;
