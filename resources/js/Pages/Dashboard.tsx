@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import { Course, CustomerWithSubscription, PageProps } from "@/types";
 import {
     Card,
@@ -254,8 +254,18 @@ export default function Dashboard({
                                             {/*    <p className="text-sm font-medium leading-none">
                                             {course.code}
                                         </p> */}
-                                            <p className="text-sm text-muted-foreground">
-                                                {course.title}
+                                            <p
+                                                onClick={() => {
+                                                    router.get(
+                                                        route(
+                                                            "course.show",
+                                                            course.id
+                                                        )
+                                                    );
+                                                }}
+                                                className="text-sm text-muted-foreground cursor-pointer"
+                                            >
+                                                {course.title.toUpperCase()}
                                             </p>
                                             <p className="text-sm">
                                                 {formatDate(course.startDate)}
