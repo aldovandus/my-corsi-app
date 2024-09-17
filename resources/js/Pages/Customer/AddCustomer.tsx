@@ -227,15 +227,6 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                                             placeholder="Indirizzo"
                                         />
                                     </div>
-
-                                    {/* <div>
-                                            <Button
-                                                type="submit"
-                                                disabled={processing}
-                                            >
-                                                Salva
-                                            </Button>
-                                        </div> */}
                                 </div>
                             </CardContent>
                         </Card>

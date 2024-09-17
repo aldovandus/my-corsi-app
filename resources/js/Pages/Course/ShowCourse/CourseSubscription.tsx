@@ -8,12 +8,14 @@ import {
 } from "@/Components/ui/card";
 import { Avatar } from "@/Components/ui/avatar";
 import { getInitials } from "@/lib/utils";
-import { Subscription } from "@/types";
+import { CustomerWithSubscription } from "@/types";
+import { Separator } from "@/Components/ui/separator";
+import { Badge } from "@/Components/ui/badge";
 
 const CourseSubscription = ({
     subscription,
 }: {
-    subscription: Subscription;
+    subscription: CustomerWithSubscription;
 }) => {
     return (
         <Card>
@@ -35,16 +37,20 @@ const CourseSubscription = ({
                         <div className="text-sm">{subscription.email}</div>
                     </div>
                 </div>
+                <div className="pt-3">
+                    <Separator />
+                </div>
             </CardHeader>
 
             <CardContent>
-                <div>
+                {/* <div>
                     <span>Prezzo: </span>
                     <span className="font-bold">{subscription.price} €</span>
-                </div>
+                </div> */}
+                <Badge>{subscription.price} €</Badge>
             </CardContent>
             <CardFooter>
-                <div className="text-base">
+                <div className="text-sm">
                     Iscritto il {subscription.subscription_date ?? "10/10/2015"}
                 </div>
             </CardFooter>

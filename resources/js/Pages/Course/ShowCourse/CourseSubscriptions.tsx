@@ -6,14 +6,13 @@ import {
     CardContent,
     CardDescription,
 } from "@/Components/ui/card";
-import { getInitials } from "@/lib/utils";
-import { Subscription } from "@/types";
+import { CustomerWithSubscription, Subscription } from "@/types";
 import CourseSubscription from "./CourseSubscription";
 
 function CourseSubscriptions({
     subscriptions,
 }: {
-    subscriptions: Subscription[];
+    subscriptions: CustomerWithSubscription[];
 }) {
     return (
         <div className="py-4">

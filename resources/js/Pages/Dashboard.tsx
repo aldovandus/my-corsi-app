@@ -251,9 +251,6 @@ export default function Dashboard({
                                             </AvatarFallback>
                                         </Avatar>
                                         <div className="grid gap-1">
-                                            {/*    <p className="text-sm font-medium leading-none">
-                                            {course.code}
-                                        </p> */}
                                             <p
                                                 onClick={() => {
                                                     router.get(
