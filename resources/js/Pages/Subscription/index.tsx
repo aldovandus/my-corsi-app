@@ -33,6 +33,7 @@ import { router } from "@inertiajs/react";
 import { Switch } from "@/Components/ui/switch";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import formatDate from "@/lib/hooks/formatDate";
+import { getPaymentsMethodMap } from "@/lib/payments-method-map";
 
 function index({
     auth,
@@ -138,7 +139,11 @@ function index({
                                                 {payment.invoice_number}
                                             </TableCell>
                                             <TableCell>
-                                                {payment.method}
+                                                {
+                                                    getPaymentsMethodMap[
+                                                        payment.method
+                                                    ]
+                                                }
                                             </TableCell>
 
                                             <TableCell>
