@@ -94,7 +94,7 @@ class CourseController extends Controller
     {
         //
         $subscriptions = Subscription::join('customers', 'subscription.customer_id', '=', 'customers.id')
-            ->select('subscription.price', 'customers.id as customer_id', 'customers.firstname', 'customers.lastname', 'customers.email') // seleziona i campi desiderati
+            ->select('subscription.id','subscription.price', 'customers.id as customer_id', 'customers.firstname', 'customers.lastname', 'customers.email') // seleziona i campi desiderati
             ->where('course_id', $course->id)->get();
 
 

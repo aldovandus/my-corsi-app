@@ -24,7 +24,7 @@ class PaymentController extends Controller
             'amount' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'subscription_id' => 'required|integer'
             // Aggiungi altri campi di validazione necessari
-        ], ['method.required' => "Inserisci il metodo di pagamento.", 'amount.required' => "Inserisci l'importo.", "payment_date" => "Inserisci la data del pagamento."]);
+        ], ['method.required' => "Inserisci il metodo di pagamento.", 'amount.required' => "Inserisci l'importo.", "payment_date" => "Inserisci la data del pagamento.", "invoice_number.required" => "Inserisci il numero di ricevuta."]);
 
         // Recupera la Subscription associata
         $subscription = Subscription::findOrFail($validated['subscription_id']);
