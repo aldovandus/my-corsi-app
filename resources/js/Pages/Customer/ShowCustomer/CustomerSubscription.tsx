@@ -101,6 +101,15 @@ function CustomerSubscription({ subscription, destroy }: Props) {
                         {formatDate(new Date(subscription.subscription_date))}
                     </span>
                 </div>
+
+                <div className="text-sm">
+                    <span className="font-bold">Esito esame: </span>
+                    <span className="">
+                        {subscription.exam_result
+                            ? "esame svolto"
+                            : "esame non svolto"}
+                    </span>
+                </div>
             </CardContent>
 
             <CardFooter className="flex flex-col justify-start items-start">

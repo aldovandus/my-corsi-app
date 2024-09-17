@@ -3,7 +3,7 @@ import NavLink from "@/Components/NavLink";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Button } from "@/Components/ui/button";
 import { Course, PageProps } from "@/types";
-import { useForm, usePage } from "@inertiajs/react";
+import { router, useForm, usePage } from "@inertiajs/react";
 import { Checkbox } from "@/Components/ui/checkbox";
 import {
     DropdownMenu,
@@ -114,7 +114,22 @@ const columns: ColumnDef<any>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Azioni</DropdownMenuLabel>
+
+                        <DropdownMenuSeparator />
                         <DropdownMenuItem
+                            className="cursor-pointer"
+                            onClick={() =>
+                                router.get(
+                                    route("course.show", {
+                                        id: row.getValue("id"),
+                                    })
+                                )
+                            }
+                        >
+                            Vedi
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="cursor-pointer"
                             onClick={() => {
                                 if (
                                     confirm(
@@ -130,19 +145,6 @@ const columns: ColumnDef<any>[] = [
                             }}
                         >
                             Elimina
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                            <NavLink
-                                href={route("course.show", {
-                                    id: row.getValue("id"),
-                                })}
-                                active={route().current("course.show", {
-                                    id: row.getValue("id"),
-                                })}
-                            >
-                                Vedi Corso
-                            </NavLink>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
@@ -191,6 +193,7 @@ const Courses = ({
                             <DataTable
                                 data={courses}
                                 filter={filter}
+                                columnVisibility={{ id: false }}
                                 columns={columns}
                                 newBtn={
                                     <NavLink
