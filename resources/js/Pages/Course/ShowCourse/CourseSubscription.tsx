@@ -33,22 +33,23 @@ const CourseSubscription = ({
         <Card>
             <CardHeader className="flex">
                 <div className="flex gap-4 items-center justify-between">
-                    <Avatar className="hidden h-14 w-14 sm:flex">
-                        <AvatarImage src="/avatars/01.png" alt="Avatar" />
-                        <AvatarFallback>
-                            {getInitials(
-                                subscription.firstname,
-                                subscription.lastname
-                            )}
-                        </AvatarFallback>
-                    </Avatar>
-                    <div>
-                        <CardTitle className="text-md">
-                            {subscription.firstname} {subscription.lastname}
-                        </CardTitle>
-                        <div className="text-sm">{subscription.email}</div>
+                    <div className="flex items-center gap-2">
+                        <Avatar className="hidden h-14 w-14 sm:flex">
+                            <AvatarImage src="/avatars/01.png" alt="Avatar" />
+                            <AvatarFallback>
+                                {getInitials(
+                                    subscription.firstname,
+                                    subscription.lastname
+                                )}
+                            </AvatarFallback>
+                        </Avatar>
+                        <div>
+                            <CardTitle className="text-md">
+                                {subscription.firstname} {subscription.lastname}
+                            </CardTitle>
+                            <div className="text-sm">{subscription.email}</div>
+                        </div>
                     </div>
-
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="ghost" className="h-8 w-8 p-0">
@@ -82,7 +83,7 @@ const CourseSubscription = ({
                                         )
                                     ) {
                                         destroy(
-                                            route("subsdcription.destroy", {
+                                            route("subscription.destroy", {
                                                 id: subscription.id,
                                             })
                                         );

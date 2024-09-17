@@ -1,7 +1,6 @@
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/Components/ui/button";
-import Modal from "@/Components/Modal";
 import { useForm } from "@inertiajs/react";
 import { Input } from "@/Components/ui/input";
 import DatePicker from "@/Components/ui/date-picker";
@@ -23,32 +22,31 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/Components/ui/dialog";
-import { Label } from "@radix-ui/react-dropdown-menu";
-import { cn } from "@/lib/utils";
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/Components/ui/popover";
 
 type Props = Partial<Payment> & { subscription_id: number };
 
 function NewRataModal({ subscription_id }: Props) {
-    const { post, errors, setData, reset, clearErrors } = useForm<Props>({
-        subscription_id,
-    });
+    const { post, errors, setData, reset, clearErrors, processing } =
+        useForm<Props>({
+            subscription_id,
+        });
 
     const [selectedFruit, setSelectedFruit] = useState("");
     const [date, setDate] = useState<Date>();
     // const [show, setShow] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    const onClick = () => {
-        //setShow(true);
-    };
-    const onClose = () => {
-        // setShow(false);
-        reset();
-        clearErrors();
+
+    const onSubmit = () => {
+        post(route("payment.store"), {
+            onSuccess: () => {
+                setIsOpen(false);
+                reset();
+                clearErrors();
+            },
+            /*   onError: (err) => {
+    if (err.overamount) alert(err.overamount);
+}, */
+        });
     };
 
     return (
@@ -167,20 +165,11 @@ function NewRataModal({ subscription_id }: Props) {
                     </div>
                     <DialogFooter>
                         <Button
-                            onClick={() => {
-                                post(route("payment.store"), {
-                                    onSuccess: () => {
-                                        setIsOpen(false);
-                                        reset();
-                                    },
-                                    /*   onError: (err) => {
-                            if (err.overamount) alert(err.overamount);
-                        }, */
-                                });
-                            }}
+                            onClick={onSubmit}
                             type="submit"
-                            className="w-full"
+                            // className="w-full"
                             size="lg"
+                            disabled={processing}
                         >
                             Aggiungi Rata
                         </Button>
