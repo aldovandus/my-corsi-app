@@ -16,8 +16,15 @@ import {
     DropdownMenuSeparator,
     DropdownMenuItem,
 } from "@/Components/ui/dropdown-menu";
+import { BreadcrumbRoute, User } from "@/types";
 
-const Header = ({ breadcrumbRoutes, user }) => {
+const Header = ({
+    breadcrumbRoutes,
+    user,
+}: {
+    user: User;
+    breadcrumbRoutes?: BreadcrumbRoute[];
+}) => {
     return (
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
             <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">

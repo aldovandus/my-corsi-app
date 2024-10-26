@@ -25,7 +25,7 @@ import {
 } from "@/Components/ui/tooltip";
 import { Link, router, usePage } from "@inertiajs/react";
 import { PropsWithChildren, ReactNode } from "react";
-import { User } from "@/types";
+import { BreadcrumbRoute, User } from "@/types";
 import { Avatar, AvatarFallback } from "@/Components/ui/avatar";
 import SidebarLink from "./SidebarLink";
 import {
@@ -42,10 +42,27 @@ import {
 } from "@/Components/ui/sidebar";
 import { Header } from "./header";
 
-type BreadcrumbRoute = {
-    url: string;
-    label: string;
-};
+const items = [
+    {
+        title: "Home",
+        url: route("dashboard"),
+        icon: Home,
+        isActiveSlug: "/",
+    },
+
+    {
+        title: "Clienti",
+        url: route("customer.index"),
+        icon: Users2,
+        isActiveSlug: "customer",
+    },
+    {
+        title: "Corsi",
+        url: route("course.index"),
+        icon: GraduationCap,
+        isActiveSlug: "courses",
+    },
+];
 
 export default function Authenticated({
     user,
@@ -57,28 +74,6 @@ export default function Authenticated({
     breadcrumbRoutes?: BreadcrumbRoute[];
 }>) {
     const page = usePage();
-
-    const items = [
-        {
-            title: "Home",
-            url: route("dashboard"),
-            icon: Home,
-            isActiveSlug: "/",
-        },
-
-        {
-            title: "Clienti",
-            url: route("customer.index"),
-            icon: Users2,
-            isActiveSlug: "customer",
-        },
-        {
-            title: "Corsi",
-            url: route("course.index"),
-            icon: GraduationCap,
-            isActiveSlug: "courses",
-        },
-    ];
 
     console.log({ page });
 
