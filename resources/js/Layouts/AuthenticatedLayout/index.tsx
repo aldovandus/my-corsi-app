@@ -63,7 +63,7 @@ export default function Authenticated({
             title: "Home",
             url: route("dashboard"),
             icon: Home,
-            isActiveSlug: "",
+            isActiveSlug: "/",
         },
 
         {
@@ -80,6 +80,8 @@ export default function Authenticated({
         },
     ];
 
+    console.log({ page });
+
     return (
         <SidebarProvider>
             <Sidebar>
@@ -91,9 +93,15 @@ export default function Authenticated({
                                 {items.map((item) => (
                                     <SidebarMenuItem key={item.title}>
                                         <SidebarMenuButton
-                                            isActive={page?.url.includes(
-                                                `/${item.isActiveSlug}`
-                                            )}
+                                            isActive={
+                                                page.component ===
+                                                    "Dashboard" &&
+                                                item.title === "Home"
+                                                    ? true
+                                                    : page?.url.includes(
+                                                          `/${item.isActiveSlug}`
+                                                      )
+                                            }
                                             asChild
                                         >
                                             <a href={item.url}>
