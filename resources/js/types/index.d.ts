@@ -68,5 +68,10 @@ export interface Payment {
     amount: number;
 }
 
+export type BreadcrumbRoute = {
+    url: string;
+    label: string;
+};
+
 type CustomerWithSubscription = Customer & Subscription;
 type SubscriptionWithCustomerAndCourse = Subscription & Customer & Course;
