@@ -104,7 +104,7 @@ class CustomerController extends Controller
             'birth_place' => 'required|string|max:100',
             'cap' => 'required|string|max:10',
             'address' => 'required|string|max:50',
-            'extra' => 'string|max:250',
+            'extra' => 'nullable|string|max:250',
 
             // Aggiungi altri campi di validazione necessari
         ], [
@@ -146,7 +146,7 @@ class CustomerController extends Controller
             'birth_place' => 'required|string|max:100',
             'cap' => 'required|string|max:10',
             'address' => 'required|string|max:50',
-            'extra' => 'string|max:250',
+            'extra' => 'nullable|string|max:250',
 
             // Aggiungi altri campi di validazione necessari
         ], [
