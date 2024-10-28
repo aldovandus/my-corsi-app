@@ -1,4 +1,10 @@
-import { GraduationCap, Home, Settings, Users2 } from "lucide-react";
+import {
+    GraduationCap,
+    Home,
+    Settings,
+    SettingsIcon,
+    Users2,
+} from "lucide-react";
 
 import {
     Breadcrumb,
@@ -61,6 +67,12 @@ const items = [
         url: route("course.index"),
         icon: GraduationCap,
         isActiveSlug: "courses",
+    },
+    {
+        title: "Impostazioni",
+        url: route("course.index"),
+        icon: SettingsIcon,
+        isActiveSlug: "settings",
     },
 ];
 
