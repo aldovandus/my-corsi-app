@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->string('title');
-            $table->string('price');
-            $table->string('startDate');
+            $table->string('price')->nullable();
+            $table->string('startDate')->nullable();
             $table->string('endDate')->nullable();
             $table->string('startStage')->nullable();
             $table->string('endDate10')->nullable();

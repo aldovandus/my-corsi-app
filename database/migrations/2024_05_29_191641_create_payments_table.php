@@ -11,17 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        /*  Schema::create('payments', function (Blueprint $table) {
-            $table->id();
-            $table->string('method');
-            $table->string('amount');
-            $table->string('payment_date');
-            $table->timestamps();
-        }); */
-
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('number');
+            $table->tinyInteger('payment_number');
             $table->string('invoice_number');
             $table->unsignedBigInteger('subscription_id');
             $table->string('method');

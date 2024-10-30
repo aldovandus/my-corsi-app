@@ -18,7 +18,7 @@ class Payment extends Model
 
 
     protected $fillable = [
-        'number',
+        'payment_number',
         'invoice_number',
         'method',
         'amount',
