@@ -3,7 +3,6 @@ type Props = {
 };
 
 function FormErrors({ errors }: Props) {
-    console.log({ errors });
     return (
         <div className="text-red-400">
             {Object.keys(errors)

@@ -22,6 +22,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/Components/ui/dialog";
+import FormErrors from "@/Components/FormErrors";
 
 type Props = Partial<Payment> & { subscription_id: number };
 
@@ -31,9 +32,7 @@ function NewRataModal({ subscription_id }: Props) {
             subscription_id,
         });
 
-    const [selectedFruit, setSelectedFruit] = useState("");
-    const [date, setDate] = useState<Date>();
-    // const [show, setShow] = useState(false);
+
     const [isOpen, setIsOpen] = useState(false);
 
     const onSubmit = () => {
@@ -69,19 +68,12 @@ function NewRataModal({ subscription_id }: Props) {
                             Aggiungi una nuova rata!
                         </DialogTitle>
                         <DialogDescription>
-                            Choose your favorite fruit from the dropdown below.
+                            Compila i dati necessari per aggiungere una Rata.
                         </DialogDescription>
                     </DialogHeader>
 
                     <div className="flex flex-col gap-3">
-                        {Object.keys(errors)
-                            .slice(0, 3)
-                            .map((key) => (
-                                <div className="text-red-500">
-                                    {errors[key]}
-                                </div>
-                            ))}
-
+                        <FormErrors errors={errors} />
                         <div className="grid  items-center gap-4">
                             <div>
                                 <DatePicker
@@ -98,7 +90,7 @@ function NewRataModal({ subscription_id }: Props) {
                                     maxLength={50}
                                     type="number"
                                     onChange={(e) => {
-                                        setData("number", e.target.value);
+                                        setData("payment_number", parseInt(e.target.value));
                                     }}
                                     placeholder="Numero rata"
                                 />
