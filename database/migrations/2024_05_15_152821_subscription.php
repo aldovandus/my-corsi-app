@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('subscription', function (Blueprint $table) {
-            //$table->foreignId('course_id')->constrained()->onDelete('cascade');
             $table->id();
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('customer_id');
@@ -20,7 +19,7 @@ return new class extends Migration
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->string('price');
             $table->tinyInteger('exam_result')->default(0);
-            $table->string('subscription_date');
+            $table->string('subscription_date')->nullable();
             $table->timestamps();
         });
     }
