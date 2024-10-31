@@ -13,8 +13,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu";
+import formatDate from "@/lib/hooks/formatDate";
 import { Customer } from "@/types";
-import { format } from "date-fns";
 import { it } from "date-fns/locale";
 
 import { Copy, Truck, MoreVertical } from "lucide-react";
@@ -44,9 +44,7 @@ function CustomerDetails({ customer }: Props) {
                             <div className="font-bold">{customer.cf}</div>
                             Data di nascita:
                             {customer.birth_date &&
-                                format(customer.birth_date, "PPP", {
-                                    locale: it,
-                                })}
+                                formatDate(customer.birth_date, <span className="ml-2">Data errata</span>)}
                         </CardDescription>
                     </div>
                     <div className="ml-auto flex items-center gap-1">
