@@ -70,7 +70,7 @@ const items = [
     },
     {
         title: "Impostazioni",
-        url: route("course.index"),
+        url: route("profile.edit"),
         icon: SettingsIcon,
         isActiveSlug: "settings",
     },
@@ -103,18 +103,18 @@ export default function Authenticated({
                                             isActive={
                                                 page.component ===
                                                     "Dashboard" &&
-                                                item.title === "Home"
+                                                    item.title === "Home"
                                                     ? true
                                                     : page?.url.includes(
-                                                          `/${item.isActiveSlug}`
-                                                      )
+                                                        `/${item.isActiveSlug}`
+                                                    )
                                             }
                                             asChild
                                         >
-                                            <a href={item.url}>
+                                            <Link href={item.url}>
                                                 <item.icon />
                                                 <span>{item.title}</span>
-                                            </a>
+                                            </Link>
                                         </SidebarMenuButton>
                                     </SidebarMenuItem>
                                 ))}
