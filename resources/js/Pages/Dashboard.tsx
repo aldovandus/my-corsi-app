@@ -46,15 +46,18 @@ export default function Dashboard({
     return (
         <AuthenticatedLayout
             user={auth.user}
-            /*  header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Dashboard
-                </h2>
-            } */
+            showBreadcrumb={false}
+        /* 
+                    header={
+                        <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                            Dashboard
+                        </h2>
+                    } */
         >
             <Head title="Dashboard" />
 
             <main className="flex flex-1 flex-col gap-4 p-4 md:p-8">
+                <h1 className="text-2xl font-bold">Dashboard</h1>
                 <div className="grid gap-4 md:grid-cols-2  lg:grid-cols-4">
                     <Card x-chunk="dashboard-01-chunk-0">
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -211,8 +214,8 @@ export default function Dashboard({
                                                     <TableCell className=" ">
                                                         {subscription.subscription_date
                                                             ? formatDate(
-                                                                  subscription.subscription_date
-                                                              )
+                                                                subscription.subscription_date
+                                                            )
                                                             : ""}
                                                     </TableCell>
                                                     <TableCell className="text-right">

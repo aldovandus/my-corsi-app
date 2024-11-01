@@ -16,6 +16,7 @@ import {
 } from '@/Components/ui/dropdown-menu';
 import formatDate from '@/lib/hooks/formatDate';
 import { Customer } from '@/types';
+import { router } from '@inertiajs/react';
 
 import { Copy, Truck, MoreVertical } from 'lucide-react';
 
@@ -37,7 +38,16 @@ function CustomerDetails({ customer }: Props) {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem>Modifica</DropdownMenuItem>
+                            <DropdownMenuItem className='cursor-pointer' onClick={() => {
+                                router.get(
+                                    route(
+                                        "customer.edit",
+                                        {
+                                            id: customer.id,
+                                        }
+                                    )
+                                );
+                            }}>Modifica</DropdownMenuItem>
                             <DropdownMenuItem>Esporta</DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>Elimina</DropdownMenuItem>

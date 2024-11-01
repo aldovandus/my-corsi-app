@@ -1,5 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
-import { Label } from "@/Components/ui/label";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Customer, PageProps, Subscription } from "@/types";
 import CustomerSubscriptions from "./CustomerSubscriptions";

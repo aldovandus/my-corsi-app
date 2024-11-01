@@ -35,6 +35,8 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import formatDate from "@/lib/hooks/formatDate";
 import { getPaymentsMethodMap } from "@/lib/payments-method-map";
 import CustomerCard from "@/Components/customer/CustomerCard";
+import CourseCard from "@/Components/course/CourseCard";
+import { Badge } from "@/Components/ui/badge";
 
 function index({
     auth,
@@ -50,7 +52,7 @@ function index({
 }>) {
     return (
         <Authenticated
-            breadcrumbRoutes={[{ label: "Clienti", url: "customer.index" }]}
+            breadcrumbRoutes={[{ label: "Clienti", url: "customer.index" }, { label: `${subscription.firstname.toLowerCase()} ${subscription.lastname.toLowerCase()}`, url: "customer.show", urlParams: { id: subscription.customer_id ?? 3515 } }, { label: `Iscrizione ${subscription.code}` }]}
             user={auth.user}
         >
             <div className="py-12">
@@ -68,8 +70,9 @@ function index({
                         </Card> */}
 
                         <CustomerCard customer={subscription} />
+                        <CourseCard course={subscription} />
 
-                        <Card>
+                        {/*  <Card>
                             <CardHeader>
                                 <CardTitle>Corso</CardTitle>
                                 <CardDescription>
@@ -95,15 +98,13 @@ function index({
                                     <div className="flex items-center space-x-2">
                                         <Label>Esito Esame</Label>
                                         <Switch
-                                            /* onCheckedChange={(checked) => {
-                                                alert(checked);
-                                            }} */
+                                            
                                             checked={subscription.exam_result}
                                         />
                                     </div>
                                 </CardDescription>
                             </CardHeader>
-                        </Card>
+                        </Card> */}
                     </div>
 
                     <Card x-chunk="dashboard-05-chunk-3" className="mt-5">
@@ -142,11 +143,11 @@ function index({
                                                 {payment.invoice_number}
                                             </TableCell>
                                             <TableCell>
-                                                {
+                                                <Badge> {
                                                     getPaymentsMethodMap[
                                                     payment.method
                                                     ]
-                                                }
+                                                }</Badge>
                                             </TableCell>
 
                                             <TableCell>

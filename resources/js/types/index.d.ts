@@ -1,3 +1,5 @@
+import { RouteParams } from "../../../vendor/tightenco/ziggy/src/js";
+
 export interface User {
     id: number;
     name: string;
@@ -70,8 +72,9 @@ export interface Payment {
 }
 
 export type BreadcrumbRoute = {
-    url: string;
     label: string;
+    url?: string;
+    urlParams?: RouteParams<string>;
 };
 
 type CustomerWithSubscription = Customer & Subscription;
