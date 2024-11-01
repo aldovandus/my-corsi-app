@@ -17,6 +17,7 @@ import NavLink from "@/Components/NavLink";
 import { usePage, useForm, router } from "@inertiajs/react";
 import clsx from "clsx";
 import { Customer, PageProps } from "@/types";
+import { Badge } from "@/Components/ui/badge";
 
 export const columns: ColumnDef<any>[] = [
     {
@@ -88,7 +89,7 @@ export const columns: ColumnDef<any>[] = [
         accessorKey: "email",
         header: () => <div className="">Email</div>,
         cell: ({ row }) => (
-            <div className="lowercase">{row.getValue("email")}</div>
+            row.getValue("email") && <Badge>{row.getValue("email")}</Badge>
         ),
     },
     {
