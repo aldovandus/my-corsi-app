@@ -34,6 +34,7 @@ import { Switch } from "@/Components/ui/switch";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import formatDate from "@/lib/hooks/formatDate";
 import { getPaymentsMethodMap } from "@/lib/payments-method-map";
+import CustomerCard from "@/Components/customer/CustomerCard";
 
 function index({
     auth,
@@ -55,7 +56,7 @@ function index({
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="grid grid-cols-2 gap-2">
-                        <Card>
+                        {/*  <Card>
                             <CardHeader>
                                 <CardTitle>Cliente</CardTitle>
                                 <div>
@@ -64,7 +65,9 @@ function index({
                                 </div>
                                 <div>{subscription.cf}</div>
                             </CardHeader>
-                        </Card>
+                        </Card> */}
+
+                        <CustomerCard customer={subscription} />
 
                         <Card>
                             <CardHeader>
@@ -141,7 +144,7 @@ function index({
                                             <TableCell>
                                                 {
                                                     getPaymentsMethodMap[
-                                                        payment.method
+                                                    payment.method
                                                     ]
                                                 }
                                             </TableCell>
