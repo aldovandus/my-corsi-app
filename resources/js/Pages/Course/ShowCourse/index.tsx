@@ -1,9 +1,8 @@
 import { Button } from "@/Components/ui/button";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Course, PageProps } from "@/types";
+import { Course, PageProps, CustomerWithSubscription } from "@/types";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import { Edit } from "lucide-react";
-import React from "react";
 import CourseSubscriptions from "./CourseSubscriptions";
 import {
     Card,
@@ -12,13 +11,13 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card";
-import NavLink from "@/Components/NavLink";
+import formatDate from "@/lib/hooks/formatDate";
 
 function ShowCourse({
     auth,
     course,
     subscriptions,
-}: PageProps<{ course: Course }>) {
+}: PageProps<{ course: Course, subscriptions: { data: CustomerWithSubscription[] } }>) {
     return (
         <Authenticated user={auth.user}>
             <div className="py-12">
@@ -62,13 +61,13 @@ function ShowCourse({
                                 <div className="flex gap-3">
                                     <Label>Data inizio:</Label>
                                     <span className="font-bold">
-                                        {course.startDate} €
+                                        {formatDate(course.startDate)}
                                     </span>
                                 </div>
                                 <div className="flex gap-3">
                                     <Label>Data Fine:</Label>
                                     <span className="font-bold">
-                                        {course.endDate} €
+                                        {formatDate(course.endDate)}
                                     </span>
                                 </div>
 
@@ -81,7 +80,7 @@ function ShowCourse({
                             </div>
                         </CardContent>
                     </Card>
-                    <CourseSubscriptions subscriptions={subscriptions} />
+                    <CourseSubscriptions subscriptions={subscriptions.data} />
                 </div>
             </div>
         </Authenticated>

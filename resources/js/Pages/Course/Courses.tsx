@@ -160,7 +160,6 @@ const Courses = ({
 }: PageProps<{ filter: string; courses: Course[] }>) => {
     const { flash } = usePage<any>().props;
 
-    console.log({ usePageProps: usePage().props });
 
     const flashClass = clsx("p-3 rounded-md text-white", {
         ["bg-green-600"]: flash.message?.type === "success",
