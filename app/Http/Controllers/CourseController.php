@@ -6,7 +6,6 @@ use App\Models\Course;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Inertia\Response;
 use Carbon\Carbon;
 
 
@@ -94,13 +93,13 @@ class CourseController extends Controller
     {
         //
         $subscriptions = Subscription::join('customers', 'subscription.customer_id', '=', 'customers.id')
-            ->select('subscription.id','subscription.price', 'customers.id as customer_id', 'customers.firstname', 'customers.lastname', 'customers.email') // seleziona i campi desiderati
-            ->where('course_id', $course->id)->get();
+            ->select('subscription.id', 'subscription.price', 'customers.id as customer_id', 'customers.firstname', 'customers.lastname', 'customers.email') // seleziona i campi desiderati
+            ->where('course_id', $course->id)->paginate(12);
 
 
         return Inertia::render('Course/ShowCourse/index', [
             'course' => $course,
-            'subscriptions' => $subscriptions
+            'subscriptions' =>  $subscriptions,
         ]);
     }
 

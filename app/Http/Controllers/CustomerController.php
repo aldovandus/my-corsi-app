@@ -8,8 +8,6 @@ use App\Models\Customer;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Inertia\Response;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 
 class CustomerController extends Controller
