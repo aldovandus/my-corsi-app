@@ -1,29 +1,62 @@
-import { Button } from "@/Components/ui/button";
+import CustomerCard from '@/Components/customer/CustomerCard';
+import { Button } from '@/Components/ui/button';
 import {
     Card,
     CardHeader,
     CardTitle,
     CardDescription,
     CardContent,
-} from "@/Components/ui/card";
+} from '@/Components/ui/card';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
-import formatDate from "@/lib/hooks/formatDate";
-import { Customer } from "@/types";
-import { it } from "date-fns/locale";
+} from '@/Components/ui/dropdown-menu';
+import formatDate from '@/lib/hooks/formatDate';
+import { Customer } from '@/types';
+import { router } from '@inertiajs/react';
 
-import { Copy, Truck, MoreVertical } from "lucide-react";
+import { Copy, Truck, MoreVertical } from 'lucide-react';
 
 type Props = {
     customer: Customer;
 };
 
 function CustomerDetails({ customer }: Props) {
+    return (
+        <div>
+            <CustomerCard
+                customer={customer}
+                actions={
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button size="icon" variant="outline" className="h-8 w-8">
+                                <MoreVertical className="h-3.5 w-3.5" />
+                                <span className="sr-only">More</span>
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem className='cursor-pointer' onClick={() => {
+                                router.get(
+                                    route(
+                                        "customer.edit",
+                                        {
+                                            id: customer.id,
+                                        }
+                                    )
+                                );
+                            }}>Modifica</DropdownMenuItem>
+                            <DropdownMenuItem>Esporta</DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>Elimina</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                }
+            />
+        </div>
+    );
     return (
         <div>
             <Card className="overflow-hidden" x-chunk="dashboard-05-chunk-4">
@@ -44,17 +77,16 @@ function CustomerDetails({ customer }: Props) {
                             <div className="font-bold">{customer.cf}</div>
                             Data di nascita:
                             {customer.birth_date &&
-                                formatDate(customer.birth_date, <span className="ml-2">Data errata</span>)}
+                                formatDate(
+                                    customer.birth_date,
+                                    <span className="ml-2">Data errata</span>
+                                )}
                         </CardDescription>
                     </div>
                     <div className="ml-auto flex items-center gap-1">
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button
-                                    size="icon"
-                                    variant="outline"
-                                    className="h-8 w-8"
-                                >
+                                <Button size="icon" variant="outline" className="h-8 w-8">
                                     <MoreVertical className="h-3.5 w-3.5" />
                                     <span className="sr-only">More</span>
                                 </Button>
@@ -70,9 +102,7 @@ function CustomerDetails({ customer }: Props) {
                 </CardHeader>
                 <CardContent className="p-6 text-sm">
                     <div className="grid gap-3">
-                        <div className="font-semibold">
-                            Informazioni cliente
-                        </div>
+                        <div className="font-semibold">Informazioni cliente</div>
                         <dl className="grid gap-3">
                             <div className="flex items-center gap-1">
                                 <dt className="font-bold">Email:</dt>

@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Link, useForm } from "@inertiajs/react";
+import { Link, router, useForm } from "@inertiajs/react";
 import { Input } from "@/Components/ui/input";
 import { Button } from "@/Components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
@@ -33,14 +33,17 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
             <form onSubmit={submit}>
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="flex gap-2">
-                        <Link href={route("customer.index")}>
-                            <div className="flex gap-2 items-center py-4 cursor-pointer">
-                                <ArrowLeftIcon className="h-5 w-5" />
-                                <Label className="text-2xl cursor-pointer">
-                                    Clienti
-                                </Label>
-                            </div>
-                        </Link>
+                        {/*  <Link href={route("customer.index")}> */}
+                        <div onClick={() => {
+                            window.history.back();
+
+                        }} className="flex gap-2 items-center py-4 cursor-pointer">
+                            <ArrowLeftIcon className="h-5 w-5" />
+                            <Label className="text-2xl cursor-pointer">
+                                indietro
+                            </Label>
+                        </div>
+                        {/* </Link> */}
                         <div className="hidden items-center gap-2 md:ml-auto md:flex">
                             <Button
                                 onClick={() => {
@@ -170,9 +173,9 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                                                 defaultValue={
                                                     customer?.birth_date
                                                         ? format(
-                                                              customer.birth_date,
-                                                              "dd/MM/yyyy"
-                                                          )
+                                                            customer.birth_date,
+                                                            "dd/MM/yyyy"
+                                                        )
                                                         : ""
                                                 }
                                                 placeholder="14/05/1991"

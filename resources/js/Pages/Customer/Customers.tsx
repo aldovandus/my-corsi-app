@@ -19,7 +19,7 @@ import clsx from "clsx";
 import { Customer, PageProps } from "@/types";
 import { Badge } from "@/Components/ui/badge";
 
-export const columns: ColumnDef<any>[] = [
+export const columns: ColumnDef<Customer>[] = [
     {
         id: "select",
         header: ({ table }) => (
@@ -64,25 +64,25 @@ export const columns: ColumnDef<any>[] = [
         header: ({ column }) => {
             return (
                 <Button
+                    className="capitalize"
                     variant="ghost"
                     onClick={() =>
                         column.toggleSorting(column.getIsSorted() === "asc")
                     }
                 >
                     Nome
-                    {/*  <ArrowUpDown className="ml-2 h-4 w-4" /> */}
                 </Button>
             );
         },
         cell: ({ row }) => (
-            <div className="lowercase">{row.getValue("firstname")}</div>
+            <div className="uppercase">{row.getValue("firstname")}</div>
         ),
     },
     {
         accessorKey: "lastname",
         header: () => <div className="">Cognome</div>,
         cell: ({ row }) => (
-            <div className="lowercase">{row.getValue("lastname")}</div>
+            <div className="uppercase">{row.getValue("lastname")}</div>
         ),
     },
     {

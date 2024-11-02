@@ -55,18 +55,17 @@ const AddSubscription = ({ customer }: { customer: Customer }) => {
                 <DialogHeader>
                     <DialogTitle>Nuova Iscrizione</DialogTitle>
                     <DialogDescription>
-                        Aggiungi tutti i dati per l'iscrizione al corso. Quando
-                        hai finito clicca su aggiungi.
+                        Aggiungi tutti i dati per l'iscrizione al corso.
                     </DialogDescription>
                 </DialogHeader>
-                <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label className="text-right">Corso</Label>
+                <div className="flex flex-col  gap-4 py-4">
+                    <div className="flex items-center gap-4">
+                        {/* <Label className="text-right">Corso</Label> */}
 
                         <CoursesComboBox setData={setData} />
                     </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label className="text-right">Prezzo</Label>
+                    <div className="flex items-center gap-4">
+                        {/* <Label className="text-right">Prezzo</Label> */}
                         <Input
                             id="price"
                             color="red"
@@ -74,18 +73,20 @@ const AddSubscription = ({ customer }: { customer: Customer }) => {
                             defaultValue={data.price}
                             className="col-span-3"
                             style={{
-                                border: errors.price ? "1px solid red" : "none",
+                                border: errors.price ? "1px solid red" : "",
                             }}
-                            placeholder="Es: 1000 €"
+
+                            placeholder="Inserisci prezzo del corso"
                             onChange={(e) => {
                                 setData("price", e.target.value);
                             }}
                         />
                     </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label className="text-right">Data</Label>
+                    <div className="flex flex-col gap-2">
+                        {/* <Label className="text-sm">Data</Label> */}
                         <DatePicker
-                            defaultDate={new Date()}
+                            className="w-full"
+                            //defaultDate={new Date()}
                             onChange={(date) => {
                                 setData("subscription_date", date);
                             }}
