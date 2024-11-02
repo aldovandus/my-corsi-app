@@ -7,7 +7,7 @@ import { MoreVertical } from 'lucide-react';
 import { ReactNode } from 'react';
 
 interface Props {
-    course: SubscriptionWithCustomerAndCourse;
+    course: SubscriptionWithCustomerAndCourse & { subscriptionPrice: string };
     actions?: ReactNode
 }
 
@@ -40,7 +40,7 @@ const CourseCard = ({ course, actions }: Props) => {
                     <span className="font-bold">
                         Prezzo:{" "}
                     </span>
-                    {/*   {course?.subscriptionPrice}€ */}
+                    {course?.subscriptionPrice}€
                 </div>
                 <div>
                     <span className="font-bold">

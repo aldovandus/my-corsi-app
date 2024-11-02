@@ -64,13 +64,13 @@ const columns: ColumnDef<any>[] = [
             <div className="capitalize">{row.getValue("title")}</div>
         ),
     },
-    {
+    /* {
         accessorKey: "price",
         header: "Prezzo",
         cell: ({ row }) => (
             <div className="capitalize">{row.getValue("price")}</div>
         ),
-    },
+    }, */
     {
         accessorKey: "startDate",
         header: "Data Inizio",
