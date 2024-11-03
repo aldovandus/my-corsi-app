@@ -8,7 +8,7 @@ function index({
     auth,
     customer,
     subscriptions,
-}: PageProps<{ customer: Customer; subscriptions: Subscription[] }>) {
+}: PageProps<{ customer: Customer & { customer_id: number }; subscriptions: Subscription[] }>) {
     return (
         <Authenticated
             breadcrumbRoutes={[{ label: "Clienti", url: "customer.index" }]}

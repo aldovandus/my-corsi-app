@@ -21,7 +21,7 @@ import { router } from '@inertiajs/react';
 import { Copy, Truck, MoreVertical } from 'lucide-react';
 
 type Props = {
-    customer: Customer;
+    customer: Customer & { customer_id: number };
 };
 
 function CustomerDetails({ customer }: Props) {

@@ -22,7 +22,7 @@ export interface Course {
     price: string;
     startDate: Date;
     endDate: Date;
-    startStage: string;
+    startStage: Date;
     endDate10: Date;
     examDate: Date;
     stageLocation: string;
