@@ -19,7 +19,8 @@ function ShowCourse({
     subscriptions,
 }: PageProps<{ course: Course, subscriptions: { data: CustomerWithSubscription[] } }>) {
     return (
-        <Authenticated user={auth.user}>
+        <Authenticated breadcrumbRoutes={[{ label: "Corsi", url: "course.index" }, { label: "Corso " + course.code }]}
+            user={auth.user} >
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <Card>
@@ -83,7 +84,7 @@ function ShowCourse({
                     <CourseSubscriptions subscriptions={subscriptions.data} />
                 </div>
             </div>
-        </Authenticated>
+        </Authenticated >
     );
 }
 

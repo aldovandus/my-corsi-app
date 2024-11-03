@@ -174,7 +174,7 @@ const Courses = ({
                     Corsi
                 </h2>
             }
-            breadcrumbRoutes={[{ label: "Corsi", url: "course.index" }]}
+            breadcrumbRoutes={[{ label: "Corsi" }]}
         >
             <div className="">
                 {/*   {flash.error && (
