@@ -49,13 +49,13 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                                 onClick={() => {
                                     window.history.back();
                                 }}
-                                variant="outline"
-                                size="sm"
+                                variant="destructive"
+                                size='sm'
                             >
                                 Annulla
                             </Button>
 
-                            <Button type="submit" size="sm">
+                            <Button type="submit" size='sm'>
                                 Salva Cliente
                             </Button>
                         </div>
@@ -69,7 +69,7 @@ const AddCustomer = ({ auth, customer }: PageProps<{ customer: Customer }>) => {
                             </CardHeader>
 
                             <CardContent>
-                                <div className="flex flex-col gap-3">
+                                <div className="flex flex-col gap-5">
                                     <div className="flex gap-6">
                                         <div className="grid w-full items-center gap-1.5">
                                             <Label>Nome</Label>

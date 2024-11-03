@@ -56,7 +56,7 @@ export const columns: ColumnDef<Customer>[] = [
         accessorKey: "cf",
         header: "Codice Fiscale",
         cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("cf")}</div>
+            <div className="capitalize"><Badge variant='secondary'>{row.getValue("cf")}</Badge></div>
         ),
     },
     {
@@ -89,14 +89,14 @@ export const columns: ColumnDef<Customer>[] = [
         accessorKey: "email",
         header: () => <div className="">Email</div>,
         cell: ({ row }) => (
-            row.getValue("email") && <Badge>{row.getValue("email")}</Badge>
+            row.getValue("email") ? <Badge>{row.getValue("email")}</Badge> : <Badge variant='destructive'>Email assente</Badge>
         ),
     },
     {
         accessorKey: "phone",
         header: () => <div className="">Telefono</div>,
         cell: ({ row }) => (
-            <div className="lowercase">{row.getValue("phone")}</div>
+            <div className="lowercase"><Badge variant='outline'>{row.getValue("phone")}</Badge></div>
         ),
     },
     {
@@ -182,11 +182,6 @@ const Customers = ({
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Clienti
-                </h2>
-            }
             breadcrumbRoutes={[{ label: "Clienti", url: "customer.index" }]}
         >
             <div className="">

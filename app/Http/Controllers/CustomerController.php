@@ -107,6 +107,7 @@ class CustomerController extends Controller
             // Aggiungi altri campi di validazione necessari
         ], [
             'firstname.required' => 'Inserisci il nome',
+            'lastname.required' => 'Inserisci il cognome',
             'email.required' => 'Inserisci un indirizzo email',
             'email.email' => "L'indirizzo email non ha un formato valido.",
             'email.unique' => "L'indirizzo email esiste già.",

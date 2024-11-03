@@ -3,6 +3,7 @@ import {
     Home,
     Settings,
     SettingsIcon,
+    User as UserIcon,
     Users2,
 } from "lucide-react";
 
@@ -68,17 +69,29 @@ const items = [
         icon: GraduationCap,
         isActiveSlug: "courses",
     },
+
+];
+
+const extra = [
+    {
+        title: "Profilo",
+        url: route("profile.edit"),
+        icon: UserIcon,
+        isActiveSlug: "settings",
+    },
+
     {
         title: "Impostazioni",
         url: route("profile.edit"),
         icon: SettingsIcon,
         isActiveSlug: "settings",
     },
-];
+]
 
 export default function Authenticated({
     user,
     children,
+    header,
     breadcrumbRoutes,
     showBreadcrumb
 }: PropsWithChildren<{
@@ -99,6 +112,35 @@ export default function Authenticated({
                         <SidebarGroupContent>
                             <SidebarMenu>
                                 {items.map((item) => (
+                                    <SidebarMenuItem key={item.title}>
+                                        <SidebarMenuButton
+                                            isActive={
+                                                page.component ===
+                                                    "Dashboard" &&
+                                                    item.title === "Home"
+                                                    ? true
+                                                    : page?.url.includes(
+                                                        `/${item.isActiveSlug}`
+                                                    )
+                                            }
+                                            asChild
+                                        >
+                                            <Link href={item.url}>
+                                                <item.icon />
+                                                <span>{item.title}</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                ))}
+                            </SidebarMenu>
+                        </SidebarGroupContent>
+                    </SidebarGroup>
+
+                    <SidebarGroup>
+                        <SidebarGroupLabel>Extra</SidebarGroupLabel>
+                        <SidebarGroupContent>
+                            <SidebarMenu>
+                                {extra.map((item) => (
                                     <SidebarMenuItem key={item.title}>
                                         <SidebarMenuButton
                                             isActive={
