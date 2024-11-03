@@ -24,9 +24,9 @@ import {
 } from "@/Components/ui/dialog";
 import FormErrors from "@/Components/FormErrors";
 
-type Props = Partial<Payment> & { subscription_id: number };
+type Props = Partial<Payment> & { subscription_id: number, isBtnEnabled?: boolean };
 
-function NewRataModal({ subscription_id }: Props) {
+function NewRataModal({ subscription_id, isBtnEnabled }: Props) {
     const { post, errors, setData, reset, clearErrors, processing } =
         useForm<Props>({
             subscription_id,
@@ -58,7 +58,7 @@ function NewRataModal({ subscription_id }: Props) {
             )}
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogTrigger asChild>
-                    <Button>
+                    <Button disabled={!isBtnEnabled}>
                         <Plus className="h-5" /> Nuova Rata
                     </Button>
                 </DialogTrigger>

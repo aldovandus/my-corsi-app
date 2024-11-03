@@ -50,6 +50,12 @@ function index({
     payments: Payment[];
     totalPayments: number;
 }>) {
+
+    const total =
+        parseFloat(
+            subscription.subscriptionPrice
+        ) - totalPayments
+
     return (
         <Authenticated
             breadcrumbRoutes={[{ label: "Clienti", url: "customer.index" }, { label: `${subscription.firstname.toLowerCase()} ${subscription.lastname.toLowerCase()}`, url: "customer.show", urlParams: { id: subscription.customer_id ?? 3515 } }, { label: `Iscrizione ${subscription.code}` }]}
@@ -113,6 +119,7 @@ function index({
                                 <CardTitle>Iscrizione</CardTitle>
                                 <NewRataModal
                                     subscription_id={subscription.id}
+                                    isBtnEnabled={total > 0}
                                 />
                             </div>
                             <CardDescription>
@@ -232,9 +239,7 @@ function index({
                                         </TableCell>
                                         <TableCell />
                                         <TableCell className="text-md">
-                                            {parseFloat(
-                                                subscription.subscriptionPrice
-                                            ) - totalPayments}
+                                            {total}
                                             €
                                         </TableCell>
                                         <TableCell />

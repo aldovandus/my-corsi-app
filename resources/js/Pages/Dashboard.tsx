@@ -198,7 +198,7 @@ export default function Dashboard({
                                                         >
                                                             <Badge
                                                                 className="text-xs"
-                                                                variant="outline"
+                                                            //variant="outline"
                                                             >
                                                                 {
                                                                     subscription.code
@@ -246,12 +246,12 @@ export default function Dashboard({
                                     <div className="flex items-center gap-4">
                                         <Avatar className="hidden h-9 w-9 sm:flex">
                                             <AvatarImage
-                                                src="/avatars/01.png"
+                                                src="/avatars/03.png"
                                                 alt="Avatar"
                                             />
-                                            <AvatarFallback>
+                                            {/*   <AvatarFallback>
                                                 {course.code}
-                                            </AvatarFallback>
+                                            </AvatarFallback> */}
                                         </Avatar>
                                         <div className="grid gap-1">
                                             <p
@@ -265,14 +265,14 @@ export default function Dashboard({
                                                 }}
                                                 className="text-sm text-muted-foreground cursor-pointer"
                                             >
-                                                {course.title.toUpperCase()}
+                                                {course.code.toUpperCase()}
                                             </p>
                                             <p className="text-sm">
-                                                {formatDate(course.startDate)}
+                                                {course.title.toUpperCase()}
                                             </p>
                                         </div>
                                         <div className="ml-auto font-medium">
-                                            +{course.price} €
+                                            {formatDate(course.startDate)}
                                         </div>
                                     </div>
                                 ))}
