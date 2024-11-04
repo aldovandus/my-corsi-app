@@ -11,7 +11,7 @@ function index({
 }: PageProps<{ customer: Customer & { customer_id: number }; subscriptions: Subscription[] }>) {
     return (
         <Authenticated
-            breadcrumbRoutes={[{ label: "Clienti", url: "customer.index" }]}
+            breadcrumbRoutes={[{ label: "Clienti", url: "customer.index" }, { label: customer.cf }]}
             user={auth.user}
         >
             <div className="py-12">
