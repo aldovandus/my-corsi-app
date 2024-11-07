@@ -95,7 +95,7 @@ class CustomerController extends Controller
         $validated = $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:customers',
+            'email' => 'nullable|string|email|max:255|unique:customers',
             'phone' => 'required|string|max:10',
             'cf' => 'required|string|max:16',
             'birth_date' => 'required|string|max:100',
@@ -108,7 +108,6 @@ class CustomerController extends Controller
         ], [
             'firstname.required' => 'Inserisci il nome',
             'lastname.required' => 'Inserisci il cognome',
-            'email.required' => 'Inserisci un indirizzo email',
             'email.email' => "L'indirizzo email non ha un formato valido.",
             'email.unique' => "L'indirizzo email esiste già.",
         ]);
